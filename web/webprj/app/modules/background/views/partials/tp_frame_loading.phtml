@@ -1,0 +1,31 @@
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="qst_loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 9999">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 0px; text-align: center">
+            <div class="modal-body" >
+            </div>
+        </div><!-- /.modal-content -->
+        {{ image("static/background/image/loading.gif", "alt":"loading", "style":"max-width: 200px; margin:200px 100px 100px 200px") }}
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<script>
+    $(function() {
+        if('undefined' == typeof QstLoading){
+            QstLoading = new function () {
+                var _modal = $('#qst_loading');
+                $(_modal).modal({
+                    keyboard: false,
+                    backdrop: 'static',
+                    show: false
+                });
+                this.show = function () {
+                    $(_modal).modal("show");
+                };
+                this.hide = function () {
+                    $(_modal).modal('hide');
+                }
+            }();
+        }
+    });
+</script>

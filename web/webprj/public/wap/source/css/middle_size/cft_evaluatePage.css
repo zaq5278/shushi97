@@ -1,0 +1,57 @@
+.evaluate_list_wrapper {
+
+}
+.evaluate_list_wrapper .goods_msg_wrapper {
+    height: 12rem;
+    border-bottom: .1rem solid rgb(238,238,238);
+    display: flex;
+    display: -webkit-flex;
+}
+.evaluate_list_wrapper .goods_msg_wrapper img{
+    width: 13rem;
+    height: 8rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
+}
+.evaluate_list_wrapper .goods_msg_wrapper .msg_title_wrapper {
+    padding: 2rem 1rem 1rem 1.5rem;
+    height: 12rem;
+    /*position: relative;*/
+}
+.goods_msg_wrapper .msg_title_wrapper .assess_goodsTitile {
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /*line-height: 1.2em;*/
+    -webkit-box-orient: vertical;
+}
+.goods_msg_wrapper .msg_title_wrapper .assess-stars {
+    height: 2.1rem;
+    position: static;
+    margin-top: 2rem;
+}
+.goods_msg_wrapper .msg_title_wrapper .assess-stars .evaluate_star:first-child {
+    margin-left: 0!important;
+}
+.evaluate_list_wrapper .order_input_wrapper {
+    padding: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.evaluate_list_wrapper .order_input_wrapper textarea {
+    background-color: rgb(238,238,238);
+    height: 15rem;
+}
+.assess_submit {
+    height: 5rem;
+    background-color: #E80516;
+    font-size: 1.5rem;
+    line-height: 5rem;
+    text-align: center;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+}

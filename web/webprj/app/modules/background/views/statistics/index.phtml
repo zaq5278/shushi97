@@ -1,0 +1,219 @@
+<div class="mbot30">
+    <form action="/sunny/admin/statistics/sale" autocomplete="on" method="post">
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group">
+                    <div id="distpicker5">
+                        <select name="province" class="form-control" data-province="{{searchData['province']}}"></select>&nbsp;&nbsp;
+                        <select name="city"  class="form-control" data-city="{{searchData['city']}}"></select>&nbsp;&nbsp;
+                    </div>
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <select id="category" name="category" class="form-control">
+                        <option value="">一级分类</option>
+                    </select>                    </div>
+                &nbsp;
+                <div class="form-group">
+                    <select id="categoryc" name="categoryc" class="form-control">
+                        <option value="">二级分类</option>
+                    </select>                    </div>
+                &nbsp;
+                <div class="form-group">
+                    <label class="control-label">日期选择</label>
+                    <div class="form-group">
+                        <div class="input-group input-daterange">
+                            <input type="text" id="mg_date_start" name="d_start" value="{{searchData['d_start']}}" class="form-control cond-date">                                    <span class="input-group-addon">to</span>
+                            <input type="text" id="mg_date_end" name="d_end" value="{{searchData['d_end']}}" class="form-control cond-date">                                </div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <input type="submit" value="筛选" class="btn btn-success">                </div>
+                <div class="form-group">
+
+                    <!--页面头部 = 标题 + 列表新增按钮/返回列表-->
+                    <div class="page-header">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+    <div id="container"></div>
+</div>
+<script type="text/javascript" src="/libs/jsapi/distpicker.data.js"></script>
+<script type="text/javascript" src="/libs/jsapi/distpicker.js"></script>
+<script>
+
+    var categoryss = '{{searchData['category']}}';//当前选中栏目
+    var categoryc = '{{searchData['categoryc']}}';//当前选中栏目
+
+    var categoryDatas = {{categoryDatas}};
+    getoption(0,'category');
+    function getoption(id,jid){
+        var cate_object = $('#'+jid);
+        var optionstr = '' ;
+        $.each(categoryDatas, function (key,value) {
+            if((id != 0 && value.pid == id)){
+                var select = '';
+                if(categoryc != '' && categoryc == value.id){
+                    select = 'selected';
+                }
+                optionstr +="<option "+select+" value='"+value.id+"'>"+value.title+"</option>";
+            }
+
+            if(value.pid == 0 && id == 0){
+
+                var select = '';
+                if(categoryss != '' && categoryss == value.id){
+                    select = 'selected';
+                }
+                optionstr += value.pid == 0 ? "<option "+select+" value='"+value.id+"'>"+value.name+"</option>" : '';
+            }
+        })
+        if(id != 0){
+            cate_object.empty();
+            optionstr = '<option value="">二级分类</option>' + optionstr;
+        }
+        cate_object.append(optionstr);
+    }
+    if(categoryss != '0' || categoryss != ''){
+        getoption(11,'categoryc');
+    }
+    $('#category').change(function () {
+        var pid = $(this).val();
+        pid == '' ? '' : getoption(pid,'categoryc');
+    });
+
+    var datex = {{orderDatas}};
+    var dates = new Array();
+    var datas = new Array();
+    $.each(datex, function (key, value) {
+        dates[key] = value.date;
+        datas[key] = value.count;
+    })
+    console.log(datas);
+    $(document).ready(function() {
+        var title = {
+            text: '舒适电商日销售量统计'
+        };
+        var subtitle = {
+            text: ''
+        };
+        var xAxis = {
+            categories: dates
+        };
+        var yAxis = {
+            title: {
+                text: ''
+            },
+            max: 1000,
+            min: 0,
+            tickInterval: 100,
+            plotLines: [{
+                enabled: false,
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        };
+
+        var tooltip = {
+
+            valueSuffix: '单'
+        }
+
+        var legend = {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        };
+
+        var series = [
+            {
+                name: '订单',
+                data: datas
+            }
+        ];
+
+        var json = {};
+
+        json.title = title;
+        json.subtitle = subtitle;
+        json.xAxis = xAxis;
+        json.yAxis = yAxis;
+        json.tooltip = tooltip;
+        json.legend = legend;
+        json.series = series;
+
+        $('#container').highcharts(json);
+        $('#mg_date_start').datepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+            clearBtn: true,
+        }).on('changeDate', function(ev){
+            var startDate = $('#mg_date_start').val();
+            var endTime = addDate(startDate,6);
+            //$('#mg_date_end').datetimepicker('setEndDate',''+endTime+'');
+
+            $('#mg_date_end').datepicker('setStartDate', startDate);
+            $('#mg_date_end').datepicker('setEndDate', endTime);
+            $("#mg_date_end").datepicker("setDate", endTime);
+
+    });
+        $('#mg_date_end').datepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+            clearBtn: true,
+        }).on('changeDate', function(ev){
+            /*var startDate = $('#mg_date_start').val();
+            var endTime = jianDate(startDate,7);
+            //$('#mg_date_end').datetimepicker('setEndDate',''+endTime+'');
+
+            $("#mg_date_start").datepicker("setDate", endTime);
+            $('#mg_date_start').datepicker('setStartDate', endTime);
+            $('#mg_date_start').datepicker('setEndDate', endTime);*/
+        });
+    })
+
+    function addDate(date, days) {
+        if (days == undefined || days == '') {
+            days = 1;
+        }
+        var date = new Date(date);
+        date.setDate(date.getDate() + days);
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day);
+    }
+    function jianDate(date, days) {
+        if (days == undefined || days == '') {
+            days = 1;
+        }
+        var date = new Date(date);
+        date.setDate(date.getDate() - days);
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day);
+    }
+    // 日期月份/天的显示，如果是1位数，则在前面加上'0'
+    function getFormatDate(arg) {
+        if (arg == undefined || arg == '') {
+            return '';
+        }
+
+        var re = arg + '';
+        if (re.length < 2) {
+            re = '0' + re;
+        }
+
+        return re;
+    }
+</script>

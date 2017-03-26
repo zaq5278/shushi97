@@ -1,0 +1,28 @@
+<div class="mbot10">
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group" style="margin-right: 300px;">
+                {{franchiserow['title']}}
+                </div>
+                &nbsp;
+                <div class="form-group" style="margin-right: 40px;">
+                    {{franchiserow['province']}}{{franchiserow['city']}}{{franchiserow['district']}}
+                </div>
+
+                <div class="form-group">
+                    详细地址：{{franchiserow['address']}}
+                </div>
+            </div>
+        </div>
+</div>
+<table class="form-inline table table-bordered">
+    <tbody>
+    <input type="hidden" id="csrf" name="csrf" value="S1VwbHhaOUN0RFRxa0dsbktFVWFKUT09">                                                                <input type="hidden" id="id" name="id">                                                                <tr>
+        <td width="320px"><label for="oldPwd" style="font-size: 18px;margin-left: 30px;">余额：</label><span style="margin-left: 20px;">{{franchiserow['balance']}}元</span></td>
+        <td>
+            <a class="btn btn-success" href="reflect">申请提现</a>
+        </td>
+        <td><a href="reflectList">交易明细</a> </td>
+    </tr>
+    </tbody>
+</table>

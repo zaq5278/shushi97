@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+	<title>主页</title>
+	<!--common-->
+    <?php
+        echo $this->tag->javascriptInclude(_LIBS_."libs/js3party/jquery/jquery-2.2.4.min.js", false);
+        $this->assets->outputCss();
+	?>
+      {{ partial("api/rootvar") }}
+ </head>
+
+<body class="sticky-header">
+
+<?php echo $this->getContent(); ?>
+{{ partial("api/rootvar") }}
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<?php
+    echo $this->tag->javascriptInclude(_LIBS_."libs/js3party/jquery-ui/1.11.4/js/jquery-ui.min.js", false);
+    echo $this->tag->javascriptInclude(_LIBS_."libs/js3party/jquery-nicescroll/3.6.8/js/jquery.nicescroll.min.js", false);
+    echo $this->tag->javascriptInclude(_LIBS_."libs/js3party/bootstrap/3.3.6/bootstrap.min.js", false);
+    //echo $this->tag->javascriptInclude(_LIBS_."libs/js3party/AdminEx/js/scripts.js");
+    
+    echo $this->tag->javascriptInclude(_LIBS_."libs/jsapi/base.js", false);
+    echo $this->tag->javascriptInclude(_LIBS_."libs/jsapi/json2.js", false);
+    echo $this->tag->javascriptInclude(_LIBS_."libs/jsapi/md5.js", false);
+    echo $this->tag->javascriptInclude(_LIBS_."libs/jsapi/service.js", false);
+    echo $this->tag->javascriptInclude(_LIBS_.'libs/js3party/weixin/jweixin-1.0.0.js', false);
+    echo $this->tag->javascriptInclude(_LIBS_.'libs/js3party/ajaxfileupload/ajaxfileupload.js', false);
+    $this->assets->outputJs();
+?>
+</body>
+</html>

@@ -1,0 +1,7 @@
+
+<!--角色列表内容-->
+{% set tb_trs = page_table["trs"] | default([]) %}
+{% set tb_ths = page_table["ths"] | default([]) %}
+{{ partial("partials/tp_frame_table") }}
+{{ create_table(tb_ths, tb_trs, false) }}
+

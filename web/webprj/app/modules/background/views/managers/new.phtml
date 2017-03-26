@@ -1,0 +1,85 @@
+{{ partial("partials/tp_page_form") }}
+<script>
+    $('.btn-success').click(function () {
+        $(this).removeClass('mutex-btn-submit');
+        var account = $('#account').val();
+        if(account == ''){
+            alert('请输入账号！');
+            $('#account').focus();
+            return false;
+        }
+
+        var password = $('#password').val();
+        if(password == ''){
+            alert('请输入密码！');
+            $('#password').focus();
+            return false;
+        }
+
+        var pw_confirm = $('#pw_confirm').val();
+        if(pw_confirm == ''){
+            alert('确认密码不能为空！');
+            $('#pw_confirm').focus();
+            return false;
+        }
+        if(pw_confirm != password){
+            alert('两次输入的密码不等！');
+            $('#pw_confirm').focus();
+            return false;
+        }
+
+        var name = $('#name').val();
+        if(name == ''){
+            alert('请输入姓名！');
+            $('#name').focus();
+            return false;
+        }
+
+        var moblie = $('#moblie').val();
+        if(moblie == ''){
+            alert('请输入手机号！');
+            $('#moblie').focus();
+            return false;
+        }
+
+        var role_id = $('#role_id').val();
+        if(role_id == 2){
+            var depot_id = $('#depot_id').val();
+            if(depot_id == ''){
+                alert('请选择所属仓库！');
+                $('#depot_id').focus();
+                return false;
+            }
+        }
+        if(role_id == 3){
+            var franchise_id = $('#franchise_id').val();
+            if(franchise_id == ''){
+                alert('请选择加盟店！');
+                $('#franchise_id').focus();
+                return false;
+            }
+        }
+        $("form")[0].submit();
+    });
+    $('#role_id').change(function () {
+        var role_id = $(this).val();
+        if(role_id == 2){
+            var str = '<select id="depot_id" name="depot_id" class="form-control err" required="required" style="margin-left: 10px"><option value="">请选择仓库</option>';
+            {% for item in depotDatas %}
+                str += '<option value= "{{item['id']}}">{{item['title']}}</option>';
+            {% endfor %}
+            str += '</select>';
+            $(this).after(str);
+                $('#franchise_id').remove();
+        }
+        if(role_id == 3){
+            var str = '<select id="franchise_id" name="franchise_id" class="form-control err" required="required" style="margin-left: 10px"><option value="">请选择加盟店</option>';
+            {% for item in franchiseDatas %}
+                str += '<option  value= "{{item['id']}}">{{item['title']}}</option>';
+            {% endfor %}
+            str += '</select>';
+            $(this).after(str);
+                $('#depot_id').remove();
+        }
+    });
+</script>

@@ -1,0 +1,137 @@
+<div class="wrapper" style="width: 1000px;">
+    <div style="font-size: 16px;font-weight: bold; margin-bottom: 10px;">订单号：{{orderDatas['ordercode']}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red">订单状态&nbsp;&nbsp;{{orderDatas['state']}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 13px;">所属仓库：{{orderDatas['depot_name']}}</span></div>
+    <table class="form-inline table table-bordered" style="width: 450px;float: left; margin-top: 16px;">
+            <tbody>
+            {% set orderGoods = orderDatas["orderGoods"] | default([]) %}
+            {% set franchPrice = '' %}
+            {% for item in orderGoods %}
+            {% set franchPrice += item['franBalance'] %}
+            {% set conintegralBalance += item['conintegralBalance'] %}
+            {% set refintegralBalance += item['refintegralBalance'] %}
+            <tr>
+                <td width="120px" nowrap=""><label for="goods_name">商品编码：</label></td>
+                <td>
+                    {{item['goods_id']}}
+                </td>
+            </tr>
+            <tr>
+                <td width="120px" nowrap=""><label for="goods_name">商品名称：</label></td>
+                <td>
+                    {{item['goods_name']}}
+                </td>
+            </tr>
+            <tr>
+                <td width="120px" nowrap=""><label for="goods_name">商品数量：</label></td>
+                <td>
+                    {{item['num']}}件
+                </td>
+            </tr>
+            <tr>
+                <td width="120px" nowrap=""><label for="goods_name">商品价格：</label></td>
+                <td>
+                    {{item['goods_price']}}元
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <table class="form-inline table table-bordered" style="width: 450px; float: left; margin-top: -20px; margin-left: 10px;">
+        <caption align="top">收货人信息</caption>
+        <tbody>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">收货人：</label></td>
+            <td>
+                {{orderDatas['vname']}}
+            </td>
+        </tr>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">收货人联系方式：</label></td>
+            <td>
+                {{orderDatas['tel']}}
+            </td>
+        </tr>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">收货地址：</label></td>
+            <td>
+                {{orderDatas['address']}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="form-inline table table-bordered" style="width: 450px; float: left; margin-top: -0px; margin-left: 10px;">
+        <caption align="top">物流信息</caption>
+        <tbody>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">物流名称：</label></td>
+            <td>
+                {{orderDatas['distribution']}}
+            </td>
+        </tr>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">配送单号：</label></td>
+            <td>
+                {{orderDatas['logisticsnum']}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="form-inline table table-bordered" style="width: 750px; float: left; margin-top: 10px;">
+        <tbody>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">运费金额：</label></td>
+            <td>
+                {{orderDatas['disPrice']}}元
+            </td>
+            <td width="150px" nowrap=""><label for="goods_name">订单总计金额：</label></td>
+            <td>
+                {{orderDatas['totalPrice']}}元
+            </td>
+        </tr>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">赠送顾客积分：</label></td>
+            <td>
+                {{conintegralBalance}}积分
+            </td>
+            <td width="150px" nowrap=""><label for="goods_name">赠送推荐者积分：</label></td>
+            <td>
+                {{refintegralBalance}}积分
+            </td>
+        </tr>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">返现加盟店：</label></td>
+            <td>
+                {{orderDatas['franchise_name']}}
+            </td>
+            <td width="150px" nowrap=""><label for="goods_name">加盟店返现：</label></td>
+            <td>
+                {{franchPrice}}元
+            </td>
+        </tr>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">订单提交人：</label></td>
+            <td colspan="3">
+                {{orderDatas['userid']}}
+            </td>
+        </tr>
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">买家留言：</label></td>
+            <td colspan="3">
+                {{orderDatas['mess']}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="form-inline table table-bordered" style="width: 910px; float: left; margin-top: 10px;">
+        <tbody>
+        {% set orderLog = orderDatas["orderLog"] | default([]) %}
+        {% for item in orderLog %}
+        <tr>
+            <td width="150px" nowrap=""><label for="goods_name">{{ item['lable'] }}：</label></td>
+            <td colspan="2">
+                {{ item['btime'] }}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

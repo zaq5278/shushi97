@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>后台管理中心</title>
+    {{ stylesheet_link_libs("libs/js3party/bootstrap/3.3.6/bootstrap.min.css",false) }}
+    {{ stylesheet_link_libs("libs/js3party/bootstrap/fonts/css/font-awesome.min.css",false) }}
+    {{ stylesheet_link("public/static/background/css/session/login.css") }}
+</head>
+<body>
+
+<div class="logo_banner" style="position:absolute; overflow:hidden;">
+    <?php echo $this->tag->image("public/static/background/image/login/loginbg.png"); ?>
+</div>
+<div class="logo_banner" style="position:absolute; overflow:hidden;">
+    <?php echo $this->tag->image("public/static/background/image/login/loginbg.png"); ?>
+</div>
+<div class="container">
+    <div class="con_shade">
+        <div class="con_bg"></div>
+        {{ form("method": "post") }}
+        <div class="form-signin" style="max-width:390px;">
+            <h2 class="form-signin-heading" style="margin: 35px;color: red;">{{ title }}</h2>
+            <div class="form-group">
+                <label class="checkbox-inline">
+                    <input type="radio" name="type" id="type3" value="1" checked> 运营
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="type" id="type4"  value="3"> 加盟商
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="type" id="type4"  value="2"> 仓库管理员
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="control-label">&nbsp;手&nbsp;机&nbsp;号</label>
+                <input type="text" id="moblie" name="moblie" max="11" onkeyup="value=value.replace(/[^\d]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" class="form-control cond-date" style="padding-left: 0px; width: 200px;display:inline;height:37px;">
+                <input id="send" class="btn btn-primary" type="button" value="获取验证码" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">&nbsp;验&nbsp;证&nbsp;码</label>
+                <input type="text" id="ValidNum" name="ValidNum" class="form-control cond-date" style="padding-left: 0px; width: 200px;display:inline;height:37px;">
+            </div>
+            <div class="form-group">
+                <label class="control-label">&nbsp;新&nbsp;密&nbsp;码</label>
+                <input type="password" id="newPwd" name="newPwd" MIN="6" MAX="20" onkeyup="value=value.replace(/[\W]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\W]/g,''))" class="form-control cond-date" style="padding-left: 0px; width: 200px;display:inline;height:37px;">
+            </div>
+            <div class="form-group">
+                <label class="control-label">确认密码</label>
+                <input type="password" id="isNewPwd" name="isNewPwd" MIN="6" MAX="20" onkeyup="value=value.replace(/[\W]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\W]/g,''))" class="form-control cond-date" style="padding-left: 0px; width: 200px;display:inline;height:37px;">
+            </div>
+            <div class="form-group">
+
+            <!--<span class="ti_shi text-center">{{ content() }}</span>-->
+
+            {{ form.render('go', ["class":"btn  btn-primary btn-block" ,'id':'submits']) }}
+<!--            <button class="btn btn-lg btn-primary btn-block"">登　录</button>-->
+        </div>
+        {{ endform() }}
+    </div>
+</div>
+<!-- Placed js at the end of the document so the pages load faster -->
+{{ javascript_include_libs("libs/js3party/jquery/jquery-2.2.4.min.js",false) }}
+{{ javascript_include_libs("libs/js3party/bootstrap/3.3.6/bootstrap.min.js",false) }}
+    <script>
+        var InterValObj; //timer变量，控制时间
+        var count = 5; //间隔函数，1秒执行
+        var curCount;//当前剩余秒数
+
+        $('#send').click(function () {
+            var moblie = $('#moblie').val();
+            if(moblie == ''){
+                alert('请输入手机号！');
+                $('#moblie').focus();
+                return false;
+            }
+            var type = $('input[name="type"]:checked ').val();
+
+            curCount = count;
+            //设置button效果，开始计时
+            $(this).attr("disabled", "true");
+            //$(this).val("" + curCount + "秒后重新发送");
+            InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+            var datass = {tel:moblie,types:type};
+            var retData = sendAjax(datass,'/sunny/wap/api/sendsms');
+            if(retData.status > 0){
+                alert(retData.desc);
+            }else{
+                alert('发送'+retData.desc);
+            }
+        });
+        //timer处理函数
+        function SetRemainTime() {
+            if (curCount == 0) {
+                window.clearInterval(InterValObj);//停止计时器
+                $("#send").removeAttr("disabled");//启用按钮
+                $("#send").val("重新发送");
+            }
+            else {
+                curCount--;
+                //$("#send").val("" + curCount + "秒后重新发送");
+            }
+        }
+        //表单提交验证
+        $('#submits').click(function () {
+            //手机号不能为空
+            var moblie = $('#moblie').val();
+            if(moblie == ''){
+                alert('请填写手机号！');
+                $('#moblie').focus();
+                return false;
+            }
+            //验证码必填
+            var ValidNum = $('#ValidNum').val();
+            if(ValidNum == ''){
+                alert('请填写验证码！');
+                $('#ValidNum').focus();
+                return false;
+            }
+            //新密码必填
+            var newPwd = $('#newPwd').val();
+            if(newPwd == ''){
+                alert('请填写新密码！');
+                $('#newPwd').focus();
+                return false;
+            }
+            //检查密码规则
+            var passmess = checkpassword(newPwd);
+            if(passmess != ''){
+                alert(passmess);
+                $('#newPwd').focus();
+                return false;
+            }
+            //检查确认密码
+            var isNewPwd = $('#isNewPwd').val();
+            if(isNewPwd == ''){
+                alert('请填写确认密码！');
+                $('#isNewPwd').focus();
+                return false;
+            }
+            //检查两次密码是否一致
+            if(newPwd != isNewPwd){
+                alert('两次密码不一致，请重新输入！');
+                $('#isNewPwd').focus();
+                return false;
+            }
+            //验证验证码
+            var datass = {tel:moblie,code:ValidNum};
+            console.log(datass);
+            var retDatas = sendAjax(datass,'/sunny/wap/api/checksmscode');
+            if(retDatas.status > 0){
+                alert(retDatas.desc);
+                $('#ValidNum').focus();
+                return false;
+            }
+        });
+        //检查密码规则
+        function checkpassword(password){
+            var str = '';
+            var num = 0;
+            var number = 0 ;
+            var letter = 0 ;
+            var bigLetter = 0 ;
+            var chars = 0 ;
+
+            if (password.search(/[0-9]/) != -1) {
+                num += 1;
+                number =1;
+            }
+            if (password.search(/[A-Z]/) != -1) {
+                num += 1;
+                bigLetter = 1 ;
+            }
+            if (password.search(/[a-z]/) != -1) {
+                num += 1;
+                letter = 1 ;
+            }
+            if (password.search(/[^A-Za-z0-9]/) != -1) {
+                num += 1;
+                chars = 1 ;
+            }
+            if (num >= 2 && (password.length >= 6 && password.length <= 20)) {
+                str = '';
+            }else if(password.length < 6 || password.length > 20){
+                str = "密码由6-16个字符组成!";
+            }else if(num == 1){
+                if(number==1){
+                    str = "不能全为数字!";
+                }
+                if(letter==1){
+                    str = "不能全为字母!";
+                }
+                if(bigLetter==1){
+                    str = "不能全为字母!";
+                }
+                if(chars==1){
+                    str = "不能全为字符!";
+                }
+            }
+            return str;
+        }
+        //ajax异步请求
+        function sendAjax(datas,url){
+            var str = new Object();
+            $.ajax({
+                url:url,
+                type:'POST', //GET
+                async:false,    //或false,是否异步
+                data:datas,
+                timeout:1000,    //超时时间
+                dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                success:function(data){
+                    str = data;
+                }
+            });
+            return str;
+        }
+    </script>
+</body>
+</html>

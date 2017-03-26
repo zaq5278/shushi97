@@ -1,0 +1,65 @@
+
+.main-content {
+    background-color: white;
+}
+
+.page-header {
+    margin-top: 0px;
+    position: absolute;
+    position: relative;
+    position: fixed;
+    position: inherit;
+}
+
+.breadcrumb {
+    margin-bottom: 0px;
+}
+
+.breadcrumb>li+li:before{
+    padding:0 5px;
+    color:#ccc;
+    content:"/ "
+}
+
+
+.table tbody {
+    background-color: #F9F9F9;
+}
+
+.table td {
+    border-bottom: dotted #c2c2c2 1px;
+}
+
+.table-invoice td {
+    vertical-align: top !important;
+}
+
+.table-right td {
+    vertical-align: middle !important;
+}
+
+form td {
+    text-align: left !important;
+}
+
+input.btn, a.btn {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.simple-module .form-edit {
+    border: 4px solid #9FD7FF;
+}
+
+.simple-module .active td {
+    border-bottom: 4px solid #9FD7FF;
+    background-color: #FFF;
+}
+
+.table-invoice th {
+    padding: 15px 10px !important;
+}
+
+
+
+

@@ -1,0 +1,136 @@
+{{ partial("partials/tp_page_check_table") }}
+{{ check_table(ths, trs, batchOperations, pager, "id") }}
+
+<div class="code_blcok"><!--code_block中代码是用于示例代码展示，请勿复制到实际工程-->
+    <button type="button" class="btn btn-info code-trigger" data-target="code-1">查看/隐藏代码</button>
+    <div id="code-1" class=" " style="display: none">
+        <h4>html:</h4>
+        <pre class="brush:xml;">
+            <!-- 详细说明请查看骑士团wiki
+            第一个参数是表头信息参数
+            第二个参数是表数据参数
+            第三个为批量操作参数
+            第四个参数为分页参数
+            -->
+            {忽略{ check_table(ths, trs, batchOperations, pager, "id") }}
+        </pre>
+        <h4>php:</h4>
+        <pre class="brush:php;">
+            //包含必要js
+            $this->addLibJs("libs/jsapi/check_table.js");
+            //传递参数
+            $tb_ths = [];
+                $tb_ths[] = array("name" => "头像", "width" => "80");
+                $tb_ths[] = array("name" => "手机", "width" => "100");
+                $tb_ths[] = array("name" => "公司",);
+                $tb_ths[] = array("name" => "联系人", "width" => "100");
+                $tb_ths[] = array("name" => "城市", "width" => "100");
+                $tb_ths[] = array("name" => "销售代表", "width" => "100");
+                $tb_ths[] = array("name" => "注册时间", "width" => "180");
+                $using = array(
+                    ["field" => 'head', "type" => "image"],
+                    ["field" => "tel"],
+                    ["field" => "company_name"],
+                    ["field" => 'vname'],
+                    ["field" => 'livecity'],
+                    ["field" => 'sales'],
+                    ["field" => 'time']
+                );
+                $tableStatus = array('active', "success", "warning", "danger", "info", "");
+                $tb_trs = array(
+                    "data" => array(
+                        array(
+                            "tableStatus"=>$tableStatus[0],
+                            'id' => 1,
+                            'head' => "http://img05.tooopen.com/images/20150202/sy_80219211654.jpg",
+                            "company_name" => "北京骑士团科技有限公司",
+                            'tel' => "13888880000",
+                            'vname' => "苗刚",
+                            "zhtel" => "010-10901211",
+                            "livecity" => "北京",
+                            "sales" => "10001",
+                            "time" => "2016-11-11 12:11:11",
+                            "operation" => "adffff"
+                        ),
+                        array(
+                            "checked" => true,
+                            "disabled" => true,
+                            "tableStatus"=>$tableStatus[1],
+                            'id' => 2,
+                            'head' => "http://img05.tooopen.com/images/20150202/sy_80219211654.jpg",
+                            "company_name" => "北京骑士团科技有限公司",
+                            'tel' => "13888880000",
+                            'vname' => "苗刚",
+                            "zhtel" => "010-10901211",
+                            "livecity" => "北京",
+                            "sales" => "10001",
+                            "time" => "2016-11-11 12:11:11",
+                            "operation" => "adffff"
+                        ),
+                        array(
+                            "tableStatus"=>$tableStatus[2],
+                            'id' => 4,
+                            'head' => "http://img05.tooopen.com/images/20150202/sy_80219211654.jpg",
+                            "company_name" => "北京骑士团科技有限公司",
+                            'tel' => "13888880000",
+                            'vname' => "苗刚",
+                            "zhtel" => "010-10901211",
+                            "livecity" => "北京",
+                            "sales" => "10001",
+                            "time" => "2016-11-11 12:11:11",
+                            "operation" => "adffff"
+                        ),
+                        array(
+                            "tableStatus"=>$tableStatus[3],
+                            'id' => 9,
+                            'head' => "http://img05.tooopen.com/images/20150202/sy_80219211654.jpg",
+                            "company_name" => "北京骑士团科技有限公司",
+                            'tel' => "13888880000",
+                            'vname' => "苗刚",
+                            "zhtel" => "010-10901211",
+                            "livecity" => "北京",
+                            "sales" => "10001",
+                            "time" => "2016-11-11 12:11:11",
+                            "operation" => "adffff"
+                        ),
+                        array(
+                            "tableStatus"=>$tableStatus[4],
+                            'id' => 11,
+                            'head' => "http://img05.tooopen.com/images/20150202/sy_80219211654.jpg",
+                            "company_name" => "北京骑士团科技有限公司",
+                            'tel' => "13888880000",
+                            'vname' => "苗刚",
+                            "zhtel" => "010-10901211",
+                            "livecity" => "北京",
+                            "sales" => "10001",
+                            "time" => "2016-11-11 12:11:11",
+                            "operation" => "adffff"
+                        )
+                    ),
+                    "using" => $using
+                );
+                $this->view->setVar("trs", $tb_trs);
+                $this->view->setVar("ths", $tb_ths);
+                $this->view->setVar("batchOperations", array(
+                    array('name'=>'提交', //操作按钮显示名称
+                        'link'=>"admin/components/table" //操作请求（POST）url
+                    ),
+                    array('name'=>'发送', 'link'=>"admin/components/table"),
+                ));
+                $this->view->setVar("pager", array(
+                    'cur'=>1, //当前页码
+                    'total'=>10, //总页数
+                    'url'=>'admin/components/table',//页码跳转url
+                    'data_total'=>100 //数据总条数
+                ));
+        </pre>
+    </div>
+</div>
+<script>
+    $(function () {
+        SyntaxHighlighter.all();
+        $(".code-trigger").on('click', function () {
+            $("#" + $(this).attr('data-target')).toggle();
+        })
+    });
+</script>

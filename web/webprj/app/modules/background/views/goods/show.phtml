@@ -1,0 +1,148 @@
+<table class="form-inline table table-bordered">
+        <tbody>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">商品编码</label></td>
+            <td>
+                {{goodsData["goods_id"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">商品名称</label></td>
+            <td>
+                {{goodsData["goods_name"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">一级分类</label></td>
+            <td>
+                {{goodsData["cat_id"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">二级分类</label></td>
+            <td>
+                {{goodsData["cat_ids"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">所属仓库</label></td>
+            <td>
+                {{goodsData["depot_id"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">剩余库存</label></td>
+            <td>
+                {{goodsData["goods_number"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">销量</label></td>
+            <td>
+                {{goodsData["sellNum"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">点击量</label></td>
+            <td>
+                {{goodsData["click_count"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">原价</label></td>
+            <td>
+                {{goodsData["market_price"]}}元
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">现价</label></td>
+            <td>
+                {{goodsData["shop_price"]}}元
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">积分</label></td>
+            <td>
+                {{goodsData["integral"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">状态</label></td>
+            <td>
+                {{goodsData["is_on_sale"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">消费者购买送积分</label></td>
+            <td>
+                {{goodsData["con_integral"]}}积分
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">推荐者赠送积分</label></td>
+            <td>
+                {{goodsData["ref_integral"]}}积分
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">同城下单加盟店返现比例</label></td>
+            <td>
+                {{goodsData["fran_cash"]}}元
+            </td>
+        </tr>
+        <tr>
+            <td width="220px"><label for="goods_name">介绍</label></td>
+            <td>
+                {{goodsData["goods_brief"]}}
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="good_details">商品详情图</label></td>
+            <td>
+                <div style="min-width:750px; position: relative">
+                    <div class="mg-input-file-container"><input type="text" style="position:absolute;z-index: -1;bottom:0;" name="good_introduction" value="[&quot;/sunny/files/2016/12/23/5dca9533f8886e6b95438ca57bcf8af54b1c279b.png&quot;]" required="required"><div class="file-input"><div class="file-preview ">
+                                <div class="file-drop-disabled">
+                                    {{goodsData["good_details"]}}
+                                    <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
+                                    <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div></div>                                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="good_details">商品规格图</label></td>
+            <td>
+                <div style="min-width:750px; position: relative">
+                    <div class="mg-input-file-container"><input type="text" style="position:absolute;z-index: -1;bottom:0;" name="good_introduction" value="[&quot;/sunny/files/2016/12/23/5dca9533f8886e6b95438ca57bcf8af54b1c279b.png&quot;]" required="required"><div class="file-input"><div class="file-preview ">
+                                <div class="file-drop-disabled">
+                                    {{goodsData["good_spec"]}}
+                                    <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
+                                    <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div></div>                                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="good_details">商品介绍图</label></td>
+            <td>
+                <div style="min-width:750px; position: relative">
+                    <div class="mg-input-file-container"><input type="text" style="position:absolute;z-index: -1;bottom:0;" name="good_introduction" value="[&quot;/sunny/files/2016/12/23/5dca9533f8886e6b95438ca57bcf8af54b1c279b.png&quot;]" required="required"><div class="file-input"><div class="file-preview ">
+                                <div class="file-drop-disabled">
+                                    {{goodsData["good_introduction"]}}
+                                    <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
+                                    <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div></div>                                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="220px" nowrap=""><label for="goods_name">录入时间</label></td>
+            <td>
+                {{goodsData["addTime"]}}
+            </td>
+        </tr>
+        </tbody>
+</table>

@@ -1,0 +1,24 @@
+
+{% set tabs = tab_data["tabs"] %}
+<div class="qst-tab" role="tablist">
+    <ul class="nav nav-tabs">
+        {% for tab in tabs %}
+            {% if (tab["active"] | default(false)) %}
+            <li role="presentation" class="active" >
+            {% else %}
+            <li role="presentation" >
+            {% endif %}
+                <a href='{{ tab["link"] }}' role="tab">{{ tab["name"] }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content">
+        {% if tab_data["view"] is defined %}
+            {{ partial(tab_data["view"]) }}
+        {% endif %}
+    </div>
+</div>
+
+
+

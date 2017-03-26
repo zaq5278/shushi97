@@ -1,0 +1,32 @@
+
+{{ partial("partials/tp_macro_form") }}
+{{ create_form(form) }}
+<script>
+    var cat_ids ={{cat_ids}};
+    var cate_id = {{cate_id}};
+    var pcate_id = {{pcate_id}};
+    $(function () {
+        $('#cat_id').change(function () {
+            var cat_id = $(this).val();
+            changeOption(cat_id);
+        })
+    })
+    if(pcate_id != 0){
+        $('#cat_id').val(pcate_id);
+    }
+    if(cate_id != 0){
+        changeOption(pcate_id);
+        $('#cat_ide').val(cate_id);
+    }
+    function changeOption(cat_id){
+        $.map(cat_ids, function (val,key) {
+            if(key == cat_id){
+                var options = '<option value="">请选择</option>';
+                $.map(val,function(v,k){
+                    options += '<option value="'+ v.id+'">'+ v.title+'</option>';
+                })
+                $('#cat_ide').empty().append(options);
+            }
+        })
+    }
+</script>

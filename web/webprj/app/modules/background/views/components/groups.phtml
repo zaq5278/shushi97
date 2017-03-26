@@ -1,0 +1,159 @@
+<div class="container">
+    <div class="page-header row">
+        <h1><strong>能力奖项</strong>
+            <small>垂直列表 KeySet&KeyTable</small>
+        </h1>
+    </div>
+    {{ qst_vertical_group(ctest, "KeySet") }}
+    <div class="code_blcok"> <!--code_block中代码是用于示例代码展示，请勿复制到实际工程-->
+        <button type="button" class="btn btn-info code-trigger" data-target="code-1">查看/隐藏代码</button>
+        <div id="code-1" style="display: none">
+            <h4>html:</h4>
+            <pre class="brush:xml;">
+                <div class="page-header row">
+                    <h1><strong>能力奖项</strong> <small>垂直列表 KeySet&KeyTable</small></h1>
+                </div>
+                <!--qst_vertical_group支持两个参数，第一个参数用于传递所需数据，第二个参数用于指定子元素类型-->
+                <!--详细说明请参考(列表组）http://tools.qst.org/mediawiki/index.php/%E9%AA%91%E5%A3%AB%E5%9B%A2web%E6%A1%86%E6%9E%B6%E5%8F%8A%E7%BB%84%E4%BB%B6#.E5.88.97.E8.A1.A8.E7.BB.84-->
+                {忽略{ qst_vertical_group(ctest, "KeySet") }}
+            </pre>
+            <h4>php:</h4>
+            <pre class="brush:php;">
+                $this->view->setVar("ctest", array(
+                    array('type' => "KeySet", 'data' => array('key'=>"服务过的品牌", "value"=>"宝洁 、京东")),
+                    array('data' => array('key'=>"能力经验", "value"=>"海外项目经验 ；服务4A公司")),
+                    array('data' => array('key'=>"服务知名公司", "value"=>"XXXXXXXXXXX")),
+                    array('data' => array('key'=>"获奖经历", "value"=>"XXXXXXXXXXX")),
+                    array('data' => array('key'=>"所获奖项", "value"=>"*****广告最具创意奖")),
+                    array('data' => array('key'=>"擅长领域", "value"=>"医疗、快消品")),
+                    array('data' => array('key'=>"擅长类型", "value"=>"市场营销顾问；媒介购买与管理")),
+                    array('type'=> 'KeyTable',
+                        'data' => array(
+                            'key' => "数据表",
+                            'data' => array(
+                                "headers" => array(
+                                    array('name' => "承接项目内容", "asTh" => 1, 'key' => "fir"),
+                                    array('name' => "预算报价", 'key' => "sec"),),
+                                "data" => array(
+                                    array('fir' => "海报", 'sec' => "￥2,000,00元/幅", 'thr' => "third--------"),
+                                    array('fir' => "海报2", 'sec' => "￥2,000,00元/幅", 'thr' => "third--------"),
+                                    array('fir' => "海报3", 'sec' => "￥2,000,00元/幅", 'thr' => "third--------"),
+                                    array('fir' => "海报4", 'sec' => "￥2,000,00元/幅", 'thr' => "third--------"),
+                                ))),
+                    )));
+            </pre>
+        </div>
+    </div>
+    <div class="page-header row">
+        <h1><strong>学习经历</strong>
+            <small>垂直列表 TextBlock</small>
+        </h1>
+    </div>
+    {{ qst_vertical_group(ctest_text, "TextBlock") }}
+    <div class="code_blcok"><!--code_block中代码是用于示例代码展示，请勿复制到实际工程-->
+        <button type="button" class="btn btn-info code-trigger" data-target="code-2">查看/隐藏代码</button>
+        <div id="code-2" style="display: none">
+            <h4>html:</h4>
+            <pre class="brush:xml;">
+                <div class="page-header row">
+                    <h1><strong>能力奖项</strong> <small>垂直列表 KeySet&KeyTable</small></h1>
+                </div>
+                <!--qst_vertical_group支持两个参数，第一个参数用于传递所需数据，第二个参数用于指定子元素类型-->
+                {忽略{ qst_vertical_group(ctest_text, "TextBlock") }}
+            </pre>
+            <h4>php:</h4>
+            <pre class="brush:php;">
+                $this->view->setVar("ctest_text", array(
+                    array('data' => array(
+                        "title" => "北京邮电大学",
+                        "subtitleA" => "数字媒体技术 I 学士",
+                        "subtitleB" => "2015.4-至今",
+                        "content" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget."
+                    )),
+                    array('data' => array(
+                        "title" => "圣乔治大学",
+                        "subtitleA" => "十字圣光",
+                        "subtitleB" => "前225-2015.4",
+                        "content" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget."
+                    ))
+                ));
+            </pre>
+        </div>
+    </div>
+    <div class="page-header row">
+        <h1><strong>代表案例</strong>
+            <small>垂直列表 ThumbnailBlock</small>
+        </h1>
+    </div>
+    {{ qst_group(ctest_thumbs, 3, "ThumbnailBlock") }}
+    <div class="code_blcok"><!--code_block中代码是用于示例代码展示，请勿复制到实际工程-->
+        <button type="button" class="btn btn-info code-trigger" data-target="code-3">查看/隐藏代码</button>
+        <div id="code-3" style="display: none">
+            <h4>html:</h4>
+            <pre class="brush:xml;">
+                <div class="page-header row">
+                    <h1><strong>能力奖项</strong> <small>垂直列表 KeySet&KeyTable</small></h1>
+                </div>
+                <!--qst_group支持三个个参数，第一个参数用于传递所需数据，第二个指定列数，第三个参数用于指定子元素类型-->
+                {忽略{ qst_group(ctest_thumbs, 3, "ThumbnailBlock") }}
+            </pre>
+            <h4>php:</h4>
+            <pre class="brush:php;">
+                $this->view->setVar("ctest_thumbs", array(
+                    array(
+                        'image'=>array('src' => 'http://img05.tooopen.com/images/20150202/sy_80219211654.jpg', 'link'=>"#", "alt"=>"sljf"),//图片
+                        "title"=>"一切为了开心嘛",//标题
+                        "content"=>"",//说明内容
+                        "labelLinks"=>array(//标签组
+                            array("link" => "#", "name" => "营销策略"),
+                            array("link" => "#", "name" => "需求详情"),
+                            array("link" => "#", "name" => "候选人名单"),
+                            array("link" => "#", "name" => "法撒旦就"),
+                        )
+                    ),
+                    array(
+                        'image'=>array('src' => 'http://img04.tooopen.com/images/20130530/tooopen_19112658.jpg', 'link'=>"#", "alt"=>"sljf"),//图片
+                        "title"=>"一切为了开心嘛",//标题
+                        "content"=>"",//说明内容
+                        "labelLinks"=>array(//标签组
+                            array("link" => "#", "name" => "营销策略"),
+                            array("link" => "#", "name" => "需求详情"),
+                            array("link" => "#", "name" => "候选人名单"),
+                            array("link" => "#", "name" => "法撒旦就"),
+                        )
+                    ),
+                    array(
+                        'image'=>array('src' => 'http://img04.tooopen.com/images/20130701/tooopen_10055061.jpg', 'link'=>"#", "alt"=>"sljf"),//图片
+                        "title"=>"一切为了开心嘛",//标题
+                        "content"=>"",//说明内容
+                        "labelLinks"=>array(//标签组
+                            array("link" => "#", "name" => "营销策略"),
+                            array("link" => "#", "name" => "需求详情"),
+                            array("link" => "#", "name" => "候选人名单"),
+                            array("link" => "#", "name" => "法撒旦就"),
+                        )
+                    ),
+                    array(
+                        'image'=>array('src' => 'http://img04.tooopen.com/images/20130701/tooopen_20083555.jpg', 'link'=>"#", "alt"=>"sljf"),//图片
+                        "title"=>"一切为了开心嘛",//标题
+                        "content"=>"",//说明内容
+                        "labelLinks"=>array(//标签组
+                            array("link" => "#", "name" => "营销策略"),
+                            array("link" => "#", "name" => "需求详情"),
+                            array("link" => "#", "name" => "候选人名单"),
+                            array("link" => "#", "name" => "法撒旦就"),
+                        )
+                    ),
+                ));
+            </pre>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        SyntaxHighlighter.all();
+        $(".code-trigger").on('click', function () {
+            $("#" + $(this).attr('data-target')).toggle();
+        })
+    });
+</script>

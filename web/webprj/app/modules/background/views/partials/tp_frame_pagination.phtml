@@ -1,0 +1,78 @@
+{%- macro pagination(page_url, data_total, page_cur, page_total) %}
+<div class="text-right">
+    <!-- 分页描述 -->
+    <ul class="pagination clear-border">
+        <li class="disabled">
+            <span>共<strong> {{ data_total }} </strong>条记录，第<strong>{{ page_cur }}</strong>页/共<strong> {{ ceil(page_total) }} </strong>页</span>
+        </li>
+    </ul>
+
+    <!-- 分页控制 -->
+    <ul class="pagination ">
+        <!--页码控制-->
+        {# 要显示的起始页码(>=1)和终止页码(<=page_total) #}
+        {#
+        {% set page_first = page_cur - 2 %}
+        {% set page_last = page_cur + 2 %}
+
+        {% if page_first < 1 %}
+        {% set page_last += (page_first | abs) + 1 %}
+        {% set page_last = min(page_last, page_total) %}
+        {% set page_first = 1 %}
+        {% else %}
+        {% if page_last > page_total %}
+        {% set page_first -= (page_last - page_total) %}
+        {% set page_first = max(page_first, 1) %}
+        {% set page_last = page_total %}
+        {% endif %}
+        {% endif %}
+        #}
+        {# 页码页面 #}
+        {#
+        {% for index in page_first..page_last %}
+        {% if loop.first %}
+        {% if page_cur > 1 %}
+        <li><a href="{{ page_url ~ 1 }}">首页</a></li>
+        <li><a href="{{ page_url ~ (page_cur - 1) }}">上一页</a></li>
+        {% else %}
+        <li class="disabled"><a>首页</a></li>
+        <li class="disabled"><a>上一页</a></li>
+        {% endif %}
+        {% endif %}
+
+        {% if index == page_cur %}
+        <li class="active"><a href="#">{{ index }}</a></li>
+        {% else %}
+        <li><a href="{{ page_url ~ index }}">{{ index }}</a></li>
+        {% endif %}
+
+        {% if loop.last %}
+        {% if page_cur >= page_total %}
+        <li class="disabled"><a>下一页</a></li>
+        <li class="disabled"><a>尾页</a></li>
+        {% else %}
+        <li><a href="{{ page_url ~ (page_cur + 1) }}">下一页</a></li>
+        <li><a href="{{ page_url ~ page_total }}">尾页</a></li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        #}
+
+        {% if page_cur > 1 %}
+        <li><a href="{{ page_url ~ 1 }}">首页</a></li>
+        <li><a href="{{ page_url ~ (page_cur - 1) }}">上一页</a></li>
+        {% else %}
+        <li class="disabled"><a>首页</a></li>
+        <li class="disabled"><a>上一页</a></li>
+        {% endif %}
+
+        {% if page_cur >= page_total %}
+        <li class="disabled"><a>下一页</a></li>
+        <li class="disabled"><a>尾页</a></li>
+        {% else %}
+        <li><a href="{{ page_url ~ (page_cur + 1) }}">下一页</a></li>
+        <li><a href="{{ page_url ~ page_total }}">尾页</a></li>
+        {% endif %}
+    </ul>
+</div>
+{%- endmacro %}

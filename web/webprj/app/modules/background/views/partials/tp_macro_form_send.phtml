@@ -1,0 +1,47 @@
+
+{%- macro create_form(form) %}
+    {% set form_action = form.getAction() %}
+    {% set default_button = form.getUserOption('default_button', true) %}
+
+    {{ form("action": form_action, "method": "post") }}
+        <table class="form-inline table table-bordered">
+            <tbody>
+            {% for element in form %}
+                {% if is_a(element, '\Phalcon\Forms\Element\Hidden') %}
+                    {{ element }}
+                {% else %}
+                    <tr>
+                        <td width= "120px"  nowrap>{{ element.label() }}</td>
+                        <td >
+                            {% if is_a(element, '\Phalcon\Forms\Element\Check') %}
+                                {{ element.render(['class' : 'js-switch']) }}
+                            {% elseif is_a(element, '\Phalcon\Forms\Element\TextArea') %}
+                                <div style="min-width:750px; width:1000px">
+                                    {{ element.render(['class' : 'form-control err', 'rows' : '4', "style":"width:100%"]) }}
+                                </div>
+                            {% elseif is_a(element, '\App\Background\Forms\Element\CustomElement') %}
+                                <div style="min-width:750px; width:1000px; position: relative">
+                                    {{ element.render() }}
+                                </div>
+                            {% else %}
+                                {{ element.render(['class' : 'form-control err']) }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+            {% if form_action is defined and true == default_button %}
+                <tr>
+                    <td></td>
+                    <td>
+                        <input name="submit" data-loading-text="正在提交..." class="btn btn-primary" type="submit" value="发送">
+                        <a href="#" class="btn btn-default" onclick="javascript:window.history.go(-1);">返回</a>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    {{ endform() }}
+
+{%- endmacro %}

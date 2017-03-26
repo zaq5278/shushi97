@@ -1,0 +1,112 @@
+<br/>
+{% set form_action = form.getAction() %}
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:8px !important;">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button" style="margin-top: 2px !important;">×</button>
+                <h4 class="modal-title">图片裁剪</h4>
+            </div>
+            <div class="modal-body">
+                <section>
+                    <div class="container">
+                        <div id="fileList" class="uploader-list"></div>
+                    </div>
+                    <div id='crop' style="height: 360px; width:570px;border:1px solid #ddd;">
+                        <img id="crop_image" width="100%" alt="裁剪图" src="" />
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5 col-md-5">
+                            <span>预览框</span>
+                            <div class='preview' style="height: 90px; width: 160px; background-color: silver;overflow:hidden;">
+                            </div>
+                        </div>
+                        <div class="col-xs-5 col-md-5" style="padding-top: 50px;">
+                            <div class="col-xs-6 col-md-6">
+                                <label for="filePicker" class="filePicker btn btn-success" style="width: 140px;">
+                                    选择图片
+                                </label>
+                                <input type="file" id="filePicker" value="选择图片" style="display: none;">
+                            </div>
+                            <div class="col-xs-6 col-md-6">
+                                <input style="display: inline-block" id="docrop" class="btn webuploader-pick btn-success" type="button" value="确定">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal -->
+<div class="simple-module">
+    <table class="table table-bordered table-invoice">
+        <thead>
+        <tr>
+            <th>添加轮播图</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--轮播图编辑页面-->
+        <tr>
+            <td width="350" valign="top">
+                <!--轮播图表单-->
+                {% if form_edit is defined %}
+                {{ form("action": action_url, "method": "post", "autocomplete": "off", "enctype": "multipart/form-data", "class": "form-edit") }}
+                {% else %}
+                {{ form("action": action_url, "method": "post", "autocomplete": "off", "enctype": "multipart/form-data") }}
+                {% endif %}
+                <table width="100%" border="0" cellpadding="8" cellspacing="0">
+                    <tbody>
+                    {% for element in form %}
+                    {% if (element.getName() == "csrf" or element.getName() == "id") %}
+                    {{ element.render() }}
+                    {% else %}
+                    <tr>
+                        <td>
+                            {% if element.getName() == "go" %}
+                            {% if form_edit is defined %}
+                            {{ link_to(cancel_url, '取消', 'class':'btn btn-default') }}
+                            {% endif %}
+                            {{ element.render(["class":"btn btn-success"]) }}
+                            {% elseif (element.getName() == "image_flag") %}
+                            {{ element.label() }}
+                            {{ element.render() }}
+                            <img id="cropped" src="" style="margin: 10px 0 10px 0"/><br>
+                            <a href="#myModal" data-toggle="modal" class="btn btn-success form-control" id="modalalert" style="width: 300px;">
+                                上传图片并裁剪
+                            </a>
+                            {% else %}
+                            {{ element.label() }}
+                            {{ element.render(["class":"form-control err"]) }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+        $('#pid').change(function () {
+            var pid = $(this).val();
+            if(pid == 0){
+                $('#param2').parent(1).css('display','');
+                $('#param1').parent(1).css('display','none');
+            }
+            if(pid == 1){
+                $('#param2').parent(1).css('display','none');
+                $('#param1').parent(1).css('display','');
+            }
+        })
+
+        $('#{{paramStr}}').parent(1).css('display','none');
+    })
+</script>

@@ -1,0 +1,2 @@
+<!--配置信息提出到login/conf.php中-->
+<!--{"appid":"101234153","appkey":"47456e9a396d7312b679dd5ab3f45738","callback":"http://3brush.com/webapi/login/qqlogin/example/oauth/callback.php","scope":"<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>,<?=$val?>","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}-->

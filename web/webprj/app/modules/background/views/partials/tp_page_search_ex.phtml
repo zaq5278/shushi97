@@ -1,0 +1,83 @@
+
+<div class="mbot30">
+    {% set search_action = page_search["link"] %}
+    <form action='{{ url(search_action) }}' autocomplete="on">
+        <div class="form-group">
+            <div class="form-inline">
+                {% set conditions = page_search["conditions"] | default([]) %}
+                {% for element in conditions %}
+                    {% if element["type"] == 0 %}
+                    <div class="form-group">
+                        {% set search_keys = element["keys"] %}
+                        {% set search_key_default = element["key_default"] %}
+                        {% set search_value_default = element["value_default"] %}
+                        {% set empty_text = element["empty_text"] | default("全部") %}
+                        {% set empty_value = element["empty_value"] | default("") %}
+                        {{ select("search_key", search_keys, 'useEmpty': true, 'emptyText': empty_text, 'emptyValue': empty_value, "class":"form-control", "value": search_key_default) }}
+                        {{ text_field("search_value", "class":"form-control", "value":search_value_default) }}
+                    </div>
+                    {% elseif element["type"] == 1 %}
+                    <div class="form-group">
+                        <label class="control-label">{{ element["label"] }}</label>
+                        {% set empty_text = element["empty_text"] | default("全部") %}
+                        {% set empty_value = element["empty_value"] | default("") %}
+                        {{ select(element["key"], element["options"], 'useEmpty': true, 'emptyText': empty_text, 'emptyValue': empty_value, "class":"form-control", "value": element['value'] | default("")) }}
+                    </div>
+                    {% elseif element["type"] == 2 %}
+                        {% set date_type = element["date_type"] | default(0) %}
+                        {% if date_type == 0 %}
+                        <div class="form-group">
+                            <label class="control-label">{{ element["label"] }}</label>
+                            <div class="form-group">
+                                <div class="input-group date">
+                                    {% set date = element["date"] | default([]) %}
+                                    {% set key = date["key"] | default("mg_date") %}
+                                    {% set value = date["value"] | default("") %}
+                                    {{ text_field(key, "class":"form-control  cond-date", "value": value) }}
+                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        {% elseif date_type == 1 %}
+                        <div class="form-group">
+                            <label class="control-label">{{ element["label"] }}</label>
+                            <div class="form-group">
+                                <div class="input-group input-daterange">
+                                    {% set date_start = element["date_start"] | default([]) %}
+                                    {% set key_start = date_start["key"] | default("mg_date_start") %}
+                                    {% set value_start = date_start["value"] | default("") %}
+                                    {{ text_field(key_start, "class":"form-control cond-date", "value": value_start) }}
+                                    <span class="input-group-addon">to</span>
+                                    {% set date_end = element["date_end"] | default([]) %}
+                                    {% set key_end = date_end["key"] | default("mg_date_end") %}
+                                    {% set value_end = date_end["value"] | default("") %}
+                                    {{ text_field(key_end, "class":"form-control cond-date", "value": value_end) }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% elseif element["type"] == 3 %}
+                        {{ hidden_field(element["key"], "value": element['value']) }}
+
+                    {% elseif element["type"] == 4 %}
+                        <div class="form-group">
+                            <label class="control-label">{{ element["label"] }}</label>
+                            {{ text_field(element["key"], "class":"form-control cond-date", "value":  element['value']) }}
+                        </div>
+                    {% endif %}
+                    &nbsp;
+                    {% if (element["br"] | default(false)) %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+                <div class="form-group">
+                    {{ submit_button('筛选', 'class': 'btn btn-success') }}
+                </div>
+                <div class="form-group">
+                {{ partial("partials/tp_page_header") }}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

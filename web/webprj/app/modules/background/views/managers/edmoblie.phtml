@@ -1,0 +1,14 @@
+{{ partial("partials/tp_page_form") }}
+<script>
+    $('.btn-success').click(function () {
+        $(this).removeClass('mutex-btn-submit');
+
+        var moblie = $('#moblie').val();
+        if(moblie == ''){
+            alert('请输入手机号码！');
+            $('#moblie').focus();
+            return false;
+        }
+        $("form")[0].submit();
+    });
+</script>

@@ -1,0 +1,47 @@
+<!--<div class="qst_tab" role="tablist">-->
+<!--    <ul class="nav nav-tabs">-->
+<!--        <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>-->
+<!--        <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>-->
+<!--        <li role="presentation"><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>-->
+<!--        <li role="presentation"><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>-->
+<!--    </ul>-->
+<!---->
+<!--    <div class="tab-content">-->
+<!--        <div role="tabpanel" class="tab-pane fade in active" id="home">1</div>-->
+<!--        <div role="tabpanel" class="tab-pane fade" id="profile">2</div>-->
+<!--        <div role="tabpanel" class="tab-pane fade" id="messages">3</div>-->
+<!--        <div role="tabpanel" class="tab-pane fade" id="settings">4</div>-->
+<!--    </div>-->
+<!--</div>-->
+
+{{ partial("partials/tp_macro_form") }}
+
+<div class="qst_tab" role="tablist">
+    <ul class="nav nav-tabs">
+        {% for tab in tabs %}
+            {% if (tab["active"] | default(false)) %}
+            <li role="presentation" class="active" >
+            {% else %}
+            <li role="presentation" >
+            {% endif %}
+                <a href="{{ '#' ~ tab['id'] }}" role="tab" data-toggle="tab">{{ tab["name"] }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content">
+        {% for tab in tabs %}
+            {% if (tab["active"] | default(false)) %}
+            <div role="tabpanel" class="tab-pane fade in active" id="{{ tab['id'] }}">
+            {% else %}
+            <div role="tabpanel" class="tab-pane fade in" id="{{ tab['id'] }}">
+            {% endif %}
+                {% set tab_form = tab["form"] %}
+                {{ create_form(tab_form) }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+

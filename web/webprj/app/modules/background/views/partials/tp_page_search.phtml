@@ -1,0 +1,28 @@
+
+<div class="mbot30">
+    {% set search_action = page_search["link"] %}
+    {% set search_keys = page_search["condition"]["keys"] %}
+    {% set search_key_default = page_search["condition"]["key_default"] %}
+    {% set search_value_default = page_search["condition"]["value_default"] %}
+    <form action='{{ url(search_action) }}' autocomplete="on">
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group">
+                    {{ select("search_key", search_keys, 'useEmpty': true, 'emptyText': '全部', 'emptyValue': '', "class":"form-control", "value": search_key_default) }}
+                </div>
+                <div class="form-group">
+                    {{ text_field("search_value", "class":"form-control", "value":search_value_default) }}
+                </div>
+                <div class="form-group">
+                    {{ submit_button('筛选', 'class': 'btn btn-success') }}
+                </div>
+                <div class="form-group">
+                    {{ partial("partials/tp_page_header") }}
+                </div>
+            </div>
+        </div>
+        
+    </form>
+    
+</div>
+

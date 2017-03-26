@@ -1,0 +1,49 @@
+
+label {
+    margin: inherit;
+    font-weight: inherit;
+}
+
+a.add {
+    float: right;
+}
+
+input.btn {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.page-header {
+    margin-top: 0px;
+}
+
+.breadcrumb {
+    margin-bottom: 0px;
+}
+
+.breadcrumb>li+li:before{
+    padding:0 5px;
+    color:#ccc;
+    content:"/ "
+}
+
+.main-content {
+    background-color: white;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    vertical-align: inherit;
+}
+
+.table {
+    background-color: #F9F9F9;
+}
+
+.table-invoice th {
+    padding: 15px 10px !important;
+}
+

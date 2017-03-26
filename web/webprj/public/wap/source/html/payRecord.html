@@ -1,0 +1,30 @@
+
+
+<ion-view>
+
+    <ion-content class="mainColor" on-drag-up="payRecordObj.dragup()">
+        <p style="text-align: center;color: gray;width: 100%;margin-top: 2rem" ng-if="payRecordObj.dataIsNull == 1">{{payRecordObj.nullMsg}}</p>
+        <ion-refresher
+                pulling-text="下拉刷新..."
+                on-refresh="payRecordObj.doRefresh()">
+        </ion-refresher>
+        <div class="payRecord">
+            <ul class="list" style="padding: 0">
+                <li class="item self_item" ng-repeat="item in payRecordObj.paylogOrderDatas">
+                    <p class="payRecord_total">
+                        <span class="text">{{item.title}}</span>
+                        <span class="num">{{item.totalprice}}</span>
+                    </p>
+                    <p class="payRecord_total">
+                        <span class="data">{{item.addTime}}</span>
+                        <span class="case">{{item.state}}</span>
+                    </p>
+                </li>
+            </ul>
+
+        </div>
+        <p class="nomore_text" ng-if="payRecordObj.noMoreData">没有更多商品...</p>
+        <ion-infinite-scroll ng-if="!payRecordObj.moredata" on-infinite="payRecordObj.loadMore()" distance="1%" ></ion-infinite-scroll>
+    </ion-content>
+
+</ion-view>

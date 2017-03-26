@@ -1,0 +1,27 @@
+<div class="mbot10">
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group" style="margin-right: 300px;">
+                {{depotrow['title']}}
+                </div>
+                &nbsp;
+                <div class="form-group" style="margin-right: 40px;">
+                    {{depotrow['province']}}{{depotrow['city']}}{{depotrow['district']}}
+                </div>
+
+                <div class="form-group">
+                    详细地址：{{depotrow['address']}}
+                </div>
+            </div>
+        </div>
+</div>
+<table class="form-inline table table-bordered">
+    <tbody>
+    <input type="hidden" id="csrf" name="csrf" value="S1VwbHhaOUN0RFRxa0dsbktFVWFKUT09">                                                                <input type="hidden" id="id" name="id">                                                                <tr>
+        <td width="200px"><label for="oldPwd" style="font-size: 18px;margin-left: 30px;">待发货订单：</label></td>
+        <td>
+            <a class="btn" href="depotorder">{{num}}</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

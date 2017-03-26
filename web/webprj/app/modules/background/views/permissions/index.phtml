@@ -1,0 +1,394 @@
+<style>
+    .ztree *{
+        font-size: 14px;
+    }
+</style>
+<div class="container">
+    <div class="page-header row">
+        <h1><strong>权限构建</strong>
+            <small class="text-danger">该功能仅为开发，部署人员提供</small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="panel col-md-3"  style="border: 1px solid; margin-bottom: 8px;min-height: 400px">
+            <!--div class="panel" style="border: 1px solid; margin-bottom: 8px;min-height: 400px"-->
+            <div class="panel-heading">
+                <h4><strong> 权限列表: </strong></h4>
+            </div>
+            <div class="panel-body">
+                <div class="">
+                    <ul id="permission_tree" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel col-md-8 pull-right manager"  style="border: 1px solid; margin-bottom: 8px;min-height: 400px">
+            <!--div class="panel" style="border: 1px solid; margin-bottom: 8px;min-height: 400px"-->
+            <div class="panel-heading">
+                <h4><strong class="text-lowercase"> 权限维护: </strong></h4>
+            </div>
+            <div class="panel-body" style="min-height: 200px">
+
+            </div>
+            <div class="panel-footer " style="background-color: #FFF;">
+                <button type="button" class="btn btn-primary submit">保存</button>
+                <button type="button" class="btn btn-default cancel">取消</button>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">删除权限</h4>
+                </div>
+                <div class="modal-body">
+                    <h4><span class="text-primary">*用户管理*</span> 及其子权限将被 <span class="text-danger">删除！！</span></br></br>确认删除？</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary submit" data-id="">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var zTreeObj;
+        // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+        var _managerPanel = $('.manager .panel-body');
+        var permissionManager =  new function () {
+            var _curNode = null;
+            var _permissionsDel = [];
+            var _modal = $("#modalDelete");
+            var _formToDel = null;
+            this.setNode = function (treeNode) {
+                _curNode = treeNode;
+                _permissionsDel = [];
+            };
+
+            var add = function (button) {
+                if(null == _curNode.pId){
+                    $(button).parent().parent('form').before(renderController())
+                }else{
+                    $(button).parent().parent('form').before(renderAction())
+                }
+            };
+
+            var del = function (button) {
+                _formToDel = $(button).parents('.form-inline').eq(0);
+                if(isNaN($(_formToDel).attr('data-id'))){
+                    $(_formToDel).remove();
+                    return;
+                }
+                $(_modal).find('.modal-body .text-primary').text($(_formToDel).find('input').eq(0).val());
+                _modal.modal('show');
+            };
+
+            var doCommit = function (data, url) {
+                if(0 == data['add'].length && 0 == data['del'].length && 0 == data['modify'].length){
+                    QstAlert.info("没有需要提交的变更");
+                    return;
+                }
+                $.post(_HOME_ROOT_ + url, JSON.stringify(data), function (resp, textStatus, xhr) {
+                    if('success' == textStatus){
+                        try{
+                            var respJson = JSON.parse(resp);
+                            if(0 == respJson['status']){
+                                if('undefined' != typeof respJson['redirect']){
+                                    location.replace(respJson['redirect']);
+                                }else{
+                                    location.reload();
+                                }
+                            }else{
+                                QstAlert.error("服务器返回错误");
+                            }
+                        }catch (e){
+                            QstAlert.error("数据格式错误！！");
+                        }
+                    }else{
+                        console.log("failed");
+                    }
+                })
+            };
+
+            /**
+             * 修改控制器级别权限
+             */
+            var commitResource = function () {
+                var req = {"pid": _curNode.id, "add" :[], "del":_permissionsDel, "modify":[]};
+                $(_managerPanel).children(".form-inline").each(function () {
+                    var inputs = $(this).find("input");
+                    if(0 != inputs.length){
+                        var name = $(inputs).eq(0).val();
+                        var controller = $(inputs).eq(1).val();
+                        var activity = true == $(inputs).eq(2)[0].checked ? 1 : 0;
+                        var id = $(this).attr('data-id');
+                        if(0 == name.length || 0 == controller.length){
+                            return;
+                        }
+
+                        if(isNaN(id)){
+                            req['add'].push({'name': name, "controller": controller, "activity": activity});
+                        }else{
+                            var tid = $(this).attr('data-tid');
+                            if(0 != tid.length){
+                                var node = zTreeObj.getNodeByTId(tid);
+                                if(node.name != name || node.controller != controller || node.activity != activity){//have some element changed.
+                                    req['modify'].push({'name': name, "controller": controller, "activity": activity, "id" : id});
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log(JSON.stringify(req));
+                doCommit(req, "admin/permissions/resource");
+            };
+
+            /**
+             * 修改action级别权限
+             */
+            var commitAccess = function () {
+                var req = {"pid": _curNode.id, "add" :[], "del":_permissionsDel, "modify":[]};
+                $(_managerPanel).children(".form-inline").each(function () {
+                    var inputs = $(this).find("input");
+                    if(0 != inputs.length){
+                        var name = $(inputs).eq(0).val();
+                        var action = $(inputs).eq(1).val();
+                        var activity = true == $(inputs).eq(2)[0].checked ? 1 : 0;
+                        var id = $(this).attr('data-id');
+                        var method = $(this).find("select").val();
+                        if(0 == name.length || 0 == action.length){
+                            return;
+                        }
+                        if(isNaN(id)){
+                            req['add'].push({'name': name, "action": action, "method": method,"activity": activity,
+                                "pid": _curNode.id, "controller": _curNode.controller});
+                        }else{
+                            var tid = $(this).attr('data-tid');
+                            if(0 != tid.length){
+                                var node = zTreeObj.getNodeByTId(tid);
+                                if(node.name != name || node.action != action || node.activity != activity || node.method != method){//have some element changed.
+                                    req['modify'].push({'name': name, "action": action, "method": method, "activity": activity,
+                                        "id" : id, "controller": _curNode.controller});
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log(JSON.stringify(req));
+                doCommit(req, "admin/permissions/access");
+            };
+
+            /**
+             * 修改具体action权限
+             */
+            var commitAccessDetail = function () {
+                var req = {"pid": _curNode.pId, "add" :[], "del":_permissionsDel, "modify":[]};
+                var inputs = $(_managerPanel).find("input");
+                var name = $(inputs).eq(3).val();
+                var action = $(inputs).eq(4).val();
+                var activity = true == $(inputs).eq(5)[0].checked ? 1 : 0;
+                var method = $(_managerPanel).find("select").val();
+                console.log(method);
+                if(_curNode.name != name || _curNode.action != action || _curNode.activity != activity || _curNode.method != method){//have some element changed.
+                    req['modify'].push({'name': name, "action": action, "method": method, "activity": activity,
+                        "id" : _curNode.id, "controller": _curNode.controller});
+                }
+                console.log(JSON.stringify(req));
+                doCommit(req, "admin/permissions/access");
+            };
+
+            var submit = function () {
+                if(null == _curNode.pId){// 修改控制器级权限
+                    commitResource();
+                }else if(0 == _curNode.pId){ //修改action级权限
+                    commitAccess();
+                }else{//修改具体action权限
+                    commitAccessDetail();
+                }
+            };
+
+            var cancel = function () {
+                console.log("cancel");
+                if(null == _curNode.pId){
+                    rootManager(_curNode);
+                }else if(0 == _curNode.pId){
+                    controllerManager(_curNode);
+                }else{
+                    actionManager(_curNode);
+                }
+            };
+
+            $('.manager').on('click', function (evt) {
+                if('undefined' != typeof evt.target.type){
+                    switch(evt.target.type) {
+                        case "button":
+                            if($(evt.target).hasClass('add')){
+                                add(evt.target);
+                            }else if($(evt.target).hasClass('submit')){
+                                submit();
+                            }else if($(evt.target).hasClass('delete')) {
+                                del(evt.target);
+                            }else{
+                                cancel();
+                            }
+                            break;
+                        case "checkbox":
+                        case "text":
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+
+            $(_modal).find(".submit").on('click', function () {
+                _permissionsDel.push($(_formToDel).attr('data-id'));
+                $(_formToDel).remove();
+                _modal.modal('hide');
+            })
+        }();
+
+        var renderController = function (name, controller, use, id, tid) {
+            var _name = ('string' != typeof name) ? "" : name;
+            var _controller = ('undefined' == typeof controller) ? "" : controller;
+            var _use = ('undefined' == typeof use) ? 1 : use;
+            var _checked = 1 == _use ? "checked" : "";
+            var _id = 'undefined' == typeof id ? NaN : id;
+            var _tid = 'undefined' == typeof tid ? "" : tid;
+            return '<form class="form-inline" role="form" data-id="'+ _id + '" data-tid="' + _tid +'">' +
+                "<div class='form-group'><input class='form-control' type='text' value='" + _name + "' placeholder='权限名称'></div> "+
+                "<div class='form-group'><input class='form-control' type='text' value='" + _controller + "' placeholder='控制器'></div> "+
+                "<div class='form-group'><input type='checkbox' "+ _checked + "> 启用权限</div> "+
+                "<div class='form-group'><button type='button' class='btn btn-sm btn-danger delete'>" +
+                "<i class='fa fa-minus'></i> 删除权限</button></div></form >"
+        };
+
+        var renderMethodSelect = function (curMethod) {
+            var _curMethod = 'undefined' == typeof curMethod ? "ALL" : curMethod;
+            var _selectOperation = [];
+            $(['ALL', 'GET', 'POST', 'DELETE', 'PUT']).each(function () {
+                if(_curMethod == this){
+                    _selectOperation.push("<option selected='selected'>"+ this +"</option>")
+                }else {
+                    _selectOperation.push("<option>"+ this +"</option>")
+                }
+            });
+            return "<select class='form-control'>" + _selectOperation.join("")+"</select>";
+        };
+
+        var renderAction = function (name, action, method, use, id, tid) {
+            var _name = ('string' != typeof name) ? "" : name;
+            var _action = ('undefined' == typeof action) ? "" : action;
+            var _method = ('undefined' == typeof method) ? "ALL" : method;
+            var _use = ('undefined' == typeof use) ? 1 : use;
+            var _checked = 1 == _use ? "checked" : "";
+            var _id = 'undefined' == typeof id ? NaN : id;
+            var _tid = 'undefined' == typeof tid ? "" : tid;
+            return '<form class="form-inline" role="form" data-id="'+ _id + '" data-tid="' + _tid +'">' +
+                "<div class='form-group'><input class='form-control' type='text' value='" + _name + "' placeholder='权限名称'></div> "+
+                "<div class='form-group'><input class='form-control' type='text' value='" + _action + "' placeholder='action名称'></div> "+
+                "<div class='form-group'>" + renderMethodSelect(_method) +
+                "</div> <div class='form-group'><input type='checkbox' "+ _checked + "> 启用权限</div> "+
+                "<div class='form-group'><button type='button' class='btn btn-sm btn-danger delete'>" +
+                "<i class='fa fa-minus'></i> 删除权限</button></div></form >"
+        };
+
+        var renderButton = function (display) {
+            var _display = 'undefined' == typeof display ? "新增权限" : display;
+            return '<form class="form-inline" role="form">' +
+                '<div class="form-group"><button class="btn btn-primary add" type="button"><i class="fa fa-plus"></i> '+
+                _display +"</button></div></form >";
+        };
+
+        var renderActionItem = function (label, key, value, placeholder, readonly) {
+            var _readonly = 'undefined' == typeof readonly ? "" : "readonly";
+            var _placeholder = 'undefined' == typeof placeholder ? "" : placeholder;
+            return "<div class='form-group'><label for='"+ key + "' class='col-md-2 control-label'>" + label +"</label>" +
+                "<div class='col-md-10'><input type='text' class='form-control' id='"+ key  +"' value='" + value +"' " + _readonly +
+                " placeholder='" + _placeholder + "'></div></div>";
+        };
+
+        var rootManager = function (treeNode) {
+            permissionManager.setNode(treeNode);
+            $('.manager .panel-heading strong').text(treeNode.name + "(/)" + " 控制器权限维护：");
+            var controllerPermissions = [];
+            $(treeNode.children).each(function () {
+                controllerPermissions.push(renderController(this.name, this.controller, this.activity, this.id, this.tId));
+            });
+            controllerPermissions.push(renderButton("新增控制器权限"));
+            $(_managerPanel).html(controllerPermissions.join(""));
+        };
+
+        var controllerManager = function (treeNode) {
+            permissionManager.setNode(treeNode);
+            $('.manager .panel-heading strong').text(treeNode.name + "(/" + treeNode.controller + ")" + " action权限维护：");
+            var actionPermissions = [];
+            $(treeNode.children).each(function () {
+                console.log(this);
+                actionPermissions.push(renderAction(this.name, this.action, this.method, this.activity, this.id, this.tId));
+            });
+            actionPermissions.push(renderButton("新建访问权限"));
+            $(_managerPanel).html(actionPermissions.join(""));
+            console.log(treeNode);
+        };
+
+        var actionManager = function (treeNode) {
+            permissionManager.setNode(treeNode);
+            $('.manager .panel-heading strong').text(treeNode.name + "(/" + treeNode.controller + "/" + treeNode.action+ ")" + " 维护：");
+            console.log(treeNode.activity);
+            var _checked = 1 == treeNode.activity ? "checked='checked'": "";
+            var actionDetail = [];
+            actionDetail.push("<form class='form-horizontal' role='form'>");
+            actionDetail.push(renderActionItem('权限id', 'action_id', treeNode.id, "", true));
+            actionDetail.push(renderActionItem('父权限id', 'action_pid', treeNode.pId, "", true));
+            actionDetail.push(renderActionItem('所属控制器', 'action_controller', treeNode.getParentNode().controller, "", true));
+            actionDetail.push(renderActionItem('权限名称', 'action_pid', treeNode.name, ""));
+            actionDetail.push(renderActionItem('访问action', 'action_action', treeNode.action, ""));
+            actionDetail.push("<div class='form-group'><label class='col-md-2 control-label'>访问方法</label><div class='col-md-10'>" +
+                renderMethodSelect(treeNode.method) +"</div></div>");
+            actionDetail.push("<div class='form-group'><label class='col-md-2 control-label'>是否启用</label><div class='col-md-10'>" +
+                "<div class='checkbox'><input type='checkbox' "+ _checked + " style='margin-left: 0px'></div>"+"</div></div>");
+            actionDetail.push("</form>");
+            $(_managerPanel).html(actionDetail.join(""));
+        };
+
+        var setting = {
+            treeId: "",
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onClick:function (evt, treeId, treeNode) {
+                    if(null == treeNode.pId){
+                        rootManager(treeNode);
+                    }else if(0 == treeNode.pId){
+                        controllerManager(treeNode);
+                    }else{
+                        actionManager(treeNode);
+                    }
+                }
+            }
+        };
+        // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解
+        var zNodes = [
+            { id:0, name:"超级权限", open:true},
+            <?php foreach ($permissions as $permission) { ?>
+            {
+                id:<?= $permission['id'] ?>, pId:<?= $permission['pid'] ?>, name:"<?= $permission['title'] ?>",
+                controller:"<?= $permission['controller'] ?>", action: "<?= $permission['action'] ?>", method:"<?= $permission['method'] ?>",
+                activity:<?= $permission['activity'] ?>, remarks:"<?= $permission['remarks'] ?>", open:true
+            },
+            <?php } ?>
+        ];
+        zTreeObj = $.fn.zTree.init($("#permission_tree"), setting, zNodes);
+        rootManager(zTreeObj.getNodes()[0]);
+    });
+</script>

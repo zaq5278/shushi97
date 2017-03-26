@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title><?php echo $error['title']; ?></title>
+    <?php foreach($cssOuts as $css){ ?>
+    <link href='<?php echo $css ?>' rel="stylesheet">
+    <?php }?>
+</head>
+
+<body class="error-page">
+<div class="container">
+    <section class="error-wrapper text-center">
+        <h1><img alt="" src="<?php echo $error['image']; ?>"></h1>
+        <h2><?php echo $error['tip_head']; ?></h2>
+        <h3 class="nrml-txt"><strong><?php echo $error['tip_body']; ?></strong></h3>
+        <a class="back-btn" href="javascript:history.go(-1);">返回</a>
+    </section>
+</div>
+<?php foreach($jsOuts as $js){?>
+<script src="<?php echo $js ?>"></script>
+<?php } ?>
+</body>
+</html>

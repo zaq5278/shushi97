@@ -1,0 +1,36 @@
+<!-- left side start-->
+<div class="left-side sticky-left-side">
+    <!--logo and iconic logo start-->
+    <div class="logo">
+        <a href="javascript:;"><?php echo $this->tag->image("public/static/background/image/logo.png"); ?></a>
+    </div>
+
+    <div class="logo-icon text-center">
+        <a href="index.html"><?php echo $this->tag->image("public/static/background/image/logo_icon.png"); ?></a>
+    </div>
+    <!--logo and iconic logo end-->
+
+    <div class="left-side-inner">
+        <!--sidebar nav start-->
+        <ul class="nav nav-pills nav-stacked custom-nav">
+            {% for mi_one_level in menu_root %}
+                {% if mi_one_level['sub_menu'] is defined %}
+                <li class="{{ mi_one_level['active'] | default(false) ?  'menu-list nav-active' : 'menu-list' }}"><a href="#"><i class="{{ mi_one_level['font_icon'] }}"></i><span>{{ mi_one_level['name'] }}</span></a>
+                    <ul class="sub-menu-list">
+                        {% for mi_two_level in mi_one_level['sub_menu'] %}
+                        <li {{ mi_two_level['active'] is empty ?  "" : "class=active" }}>
+                        <a href="{{ mi_two_level['link_action'] is empty ? '#' : url(mi_two_level['link_action']) }}">{{ mi_two_level['name'] }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                <li {{ mi_one_level['active'] is empty ? "" : "class=active" }}>
+                <a href="{{ mi_one_level['link_action'] is empty ? '#' : url(mi_one_level['link_action']) }}"><i class="{{ mi_one_level['font_icon'] }}"></i><span>{{ mi_one_level['name'] }}</span></a>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <!--sidebar nav end-->
+    </div>
+</div>
+<!-- left side end-->

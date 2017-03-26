@@ -1,0 +1,38 @@
+
+
+<ion-view>
+
+    <ion-content class="mainColor" on-drag-up="scoreObj.dragup()">
+
+        <ion-refresher
+                pulling-text="下拉刷新..."
+                on-refresh="scoreObj.doRefresh()">
+        </ion-refresher>
+        <div class="totalScore_total">
+            <div class="score">总计积分：{{scoreObj.creditNum}} 积分</div>
+            <div class="exchange" ng-click="goExchange()">兑换</div>
+        </div>
+
+        <div class="totalScore-detail">
+            <ul class="list">
+                <li class="item self_item">
+                    <p class="inDetail">积分收入明细</p>
+                </li>
+
+                <li class="item self_item" ng-repeat="obj in scoreObj.scoreListDatas">
+                    <p class="give">
+                        <span class="text">{{obj.title}}</span>
+                        <span class="num">{{obj.integral}}</span>
+                    </p>
+                    <p class="date">{{obj.addTime}}</p>
+                </li>
+            </ul>
+
+        </div>
+        <p ng-if="scoreObj.msgsIsNull == 1" style="text-align: center;color: gray; margin-top: 2rem; width: 100%">{{scoreObj.emptyLogMsg}}</p>
+        <p class="nomore_text" ng-if="scoreObj.noMoreData == 1">{{scoreObj.noMoreDataMsg}}</p>
+        <ion-infinite-scroll ng-if="scoreObj.moredata" on-infinite="scoreObj.loadMore()" distance="1%" ></ion-infinite-scroll>
+
+    </ion-content>
+
+</ion-view>

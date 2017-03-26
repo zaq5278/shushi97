@@ -1,0 +1,40 @@
+{%- macro check_table(th, td, operations, page_pagination, data_key = null) %}
+{{ partial("partials/tp_frame_table") }}
+{{ partial("partials/tp_frame_pagination") }}
+
+{% set page_cur = page_pagination['cur'] | default(1) %}
+{# 总页数，默认1页 #}
+{% set page_total = page_pagination['total'] | default(1) %}
+{# 默认URL #}
+{% set page_url = page_pagination['url'] | default("") %}
+{% set data_total = page_pagination['data_total'] | default(0) %}
+
+<div class="qst-check-table">
+    {{ create_table(th, td, true, data_key) }}
+    <div class="inline">
+        <div class="col-sm-4 qst-checker" style="padding-left: 0">
+            <ul class="pagination pull-left">
+                <li class="disabled">
+                    <span><input type="checkbox">全选</span>
+                </li>
+                <li>
+                    {% for op in operations %}
+                    {% set display = "" %}
+                    {% set link = "#" %}
+                    {% if op['name'] is defined %}
+                    {% set display = op['name'] %}
+                    {% endif %}
+                    {% if op['link'] is defined %}
+                    {% set link = op['link'] %}
+                    {% endif %}
+                    <a href="{{ link }}">{{display}}</a>
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-8 qst-pager" style="padding-right: 0">
+            {{ pagination(page_url, data_total, page_cur, page_total) }}
+        </div>
+    </div>
+</div>
+{%- endmacro %}

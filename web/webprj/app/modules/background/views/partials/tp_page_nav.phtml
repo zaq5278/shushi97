@@ -1,0 +1,13 @@
+
+<!--导航菜单-->
+<ol class="breadcrumb">
+    <!--{{ nav_menu | json_encode }}-->
+    {% for menu in nav_menu %}
+        <!--{{ menu | json_encode }}-->
+        {% if loop.last %}
+            <li class="active">{{ menu['name'] }}</li>
+        {% else %}
+            <li>{{ link_to(menu['link'], menu['name']) }}</li>
+        {% endif %}
+    {% endfor %}
+</ol>

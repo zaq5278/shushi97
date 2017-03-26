@@ -1,0 +1,23 @@
+{# 当前页码，默认第1页 #}
+{% set page_pagination = tb_page %}
+{% set page_cur = page_pagination['cur'] | default(1) %}
+{# 总页数，默认1页 #}
+{% set page_total = page_pagination['total'] | default(1) %}
+{# 默认URL #}
+{% set page_url = page_pagination['url'] | default("") %}
+<!--    {% set page_url = page_url %}-->
+{# 每页显示行数-可选项下拉选择 #}
+{% set page_rows_options = page_pagination['rows_options'] | default(['10':'10', '20':'20', '30':'30', '50':'50']) %}
+{# 每页显示行数-当前值，默认0=10行 #}
+{% set page_rows_value = page_pagination['rows_value'] | default(10) %}
+{% set page_rows = page_rows_options[page_rows_value] %}
+
+{# 数据总行数 #}
+{% set data_total = page_pagination['data_total'] | default(0) %}
+{# 当前页起始行 #}
+{% set data_first = page_pagination['data_start'] | default(1) %}
+{# 当前页终止行 #}
+{% set data_last = min((data_first + page_rows), data_total) %}
+{{ partial("partials/tp_frame_pagination") }}
+
+{{ pagination(page_url, data_total, page_cur, page_total) }}

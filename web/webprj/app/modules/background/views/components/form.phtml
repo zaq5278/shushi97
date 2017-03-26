@@ -1,0 +1,131 @@
+<div class="container">
+    <div class="page-header row">
+        <h1><strong>标签选择器</strong>
+            <small>标签选择 tag_selector</small>
+        </h1>
+    </div>
+    <form  id="f1" class="form-horizontal" role="form" action="{{url('admin/components/form')}}" method="POST">
+        {{ tag_selector(ts['label'],ts['key'],ts['candidates'], ts['maxChosen'], ts['chosen'], ts['selfSubmit'],ts['buttonDisplay']) }}
+    </form>
+    <div class="code_blcok"><!--code_block中代码是用于示例代码展示，请勿复制到实际工程-->
+        <button type="button" class="btn btn-info code-trigger" data-target="code-1">查看/隐藏代码</button>
+        <div id="code-1" class=" " style="display: none">
+            <h4>html:</h4>
+            <pre class="brush:xml;">
+                <!--
+                第一个参数是标签名，可以不填
+                第二个参数是选取结果存到表单中的key值，value存储形式为json字符串
+                第三个参数是候选标签列表，数组形式
+                第四个参数为是否带表单提交按钮，缺省为不带
+                第五个参数是表单提交按钮的显示名
+                -->
+                {忽略{ tag_selector(ts['label'],ts['key'],ts['candidates'],ts['chosen'], ts['selfSubmit'],ts['buttonDisplay']) }}
+            </pre>
+            <h4>php:</h4>
+            <pre class="brush:php;">
+                $this->view->setVar("ts", array(
+                    'label' => "",
+                    "key" => "test",
+                    "candidates"=>array(
+                        array("key"=>"1", "name"=>"活动策划与执行"),
+                        array("key"=>"2", "name"=>"海外项目经验"),
+                        array("key"=>"3", "name"=>"调研 用户洞察、行业调研、分析"),
+                        array("key"=>"4", "name"=>"媒介购买与管理"),
+                        array("key"=>"51", "name"=>"旅游 "),
+                        array("key"=>"6", "name"=>"公共关系"),
+                        array("key"=>"7", "name"=>"活动策划与执行"),
+                        array("key"=>"8", "name"=>"海外项目经验"),
+                        array("key"=>"9", "name"=>"调研 用户洞察、行业调研、分析"),
+                        array("key"=>"10", "name"=>"媒介购买与管理"),
+                        array("key"=>"11", "name"=>"旅游 "),
+                        array("key"=>"12", "name"=>"公共关系")),
+                    "chosen"=>array("chosenId"=>array("1", "3", "10")),
+                    "maxChosen"=>7,
+                    'selfSubmit' => true,
+                    'buttonDisplay' => "测试1"
+                ));
+            </pre>
+        </div>
+    </div>
+
+    <div class="page-header row">
+        <h1><strong>互斥操作按钮组</strong>
+            <small>标签选择 tag_selector</small>
+        </h1>
+    </div>
+    <form id="f2">
+        {{ mutex_operations("testkey1", 'testExtra1', mutexOps) }}
+    </form>
+    <div class="code_blcok"><!--code_block中代码是用于示例代码展示，请勿复制到实际工程-->
+        <button type="button" class="btn btn-info code-trigger" data-target="code-2">查看/隐藏代码</button>
+        <div id="code-2" class=" " style="display: none">
+            <h4>html:</h4>
+            <pre class="brush:xml;">
+                <!--第一个参数是状态的表单key，第二个字段是附加信息的表单key，第三个参数是操作参数，参考php代码-->
+                {忽略{ mutex_operations("testkey1", 'testExtra1', mutexOps) }}
+            </pre>
+            <h4>php:</h4>
+            <pre class="brush:php;">
+                //引用必须js文件
+                $this->addLibJs("libs/jsapi/form-mutex-operations.js");
+                //设置按钮参数
+                $this->view->setVar("mutexOps", array(
+                    array("name" => "审核通过", "status" => "1", "type" => "submit"),
+                    array("name" => "审核未通过", "status" => "2", "type" => "pop", 'title'=>'审核不通过原因：', 'placeholder'=>"不超过100个字符"),
+                    array("name" => "延期处理", "status" => "3", "type" => "pop", 'title'=>'延期原因：', 'placeholder'=>"不超过100个字符"),
+                    array("name" => "返回", "status" => "1", "type" => "back"),
+                ));
+            </pre>
+        </div>
+    </div>
+
+    <div class="page-header row">
+        <h1><strong>分级选择按钮</strong>
+            <small>标签选择 data_tree_selector</small>
+        </h1>
+    </div>
+    <form id="f3">
+        {{ data_tree_selector(dataSelector) }}
+    </form>
+    <div class="code_blcok"><!--code_block中代码是用于示例代码展示，请勿复制到实际工程-->
+        <button type="button" class="btn btn-info code-trigger" data-target="code-3">查看/隐藏代码</button>
+        <div id="code-3" class=" " style="display: none">
+            <h4>html:</h4>
+            <pre class="brush:xml;">
+                <!--详情参考骑士团wiki web框架 多级联动数据选择控件-->
+                {忽略{ data_tree_selector(dataSelector)}}
+            </pre>
+            <h4>php:</h4>
+            <pre class="brush:php;">
+                $this->view->setVar("dataSelector", array(
+                'selector'=>array(//选择器组件配置
+                    'dataUrl'=>"/qstfw/webprj/admin/index/tareas", //获取分级数据的url
+                    "levels"=>array(//分级数据选择按钮配置
+                        array('type'=>"city", "prompt"=>"请选择城市"),//数据类型和无数据时默认显示的内容
+                        array('type'=>"county", "prompt"=>"请选择区县"),
+                        array('type'=>"town", "prompt"=>"请选择社区"),
+                    )
+                ),
+                'trigger'=>array(//触发选择弹框及隐藏提交表单的配置
+                    'label'=>'',//前置说明标签
+                    'defaultDisplay'=>'请选择地址',//无数据时显示的值
+                    'idItem'=>array(//隐藏提交表单，分级数据id，不同级别之间以"-"分割
+                        'key' =>'addrid',//提交表单的key
+                        'value'=>'0-0-0' //当前数据，如需回显已保存数据，则需要该字段
+                    ),
+                    'nameItem'=>array(//隐藏提交表单，分级数据名称，不同级别之间以"-"分割
+                        'key'=>'addr', //提交表单的key
+                        'value'=>'北京-朝阳-望京' //当前数据，如需回显已保存数据，则需要该字段
+                    )
+                )
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        SyntaxHighlighter.all();
+        $(".code-trigger").on('click', function () {
+            $("#" + $(this).attr('data-target')).toggle();
+        })
+    });
+</script>

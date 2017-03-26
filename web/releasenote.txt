@@ -1,0 +1,20 @@
+产品名称：后台框架
+项目成员: 苗刚
+部署环境: CentOS-6.5-64bit apache-2.4.9 php-5.5.12 mysql-5.6.17
+产品版本：1.0.0
+产品模块:
+	project_template 版本: 1.0.0
+	应用工程模板, 重点是目录结构
+	
+	project_component 版本: 1.0.0
+	应用工程组件，包括前端组件(JS+CSS)和后端组件(PHP)两部分
+
+功能描述:
+	后台框架主要包括两部分内容，应用工程模板(简称模板)和应用工程组件(简称组件)，
+	模板目前只有一种通用模板，包括基础目录结构，核心基础框架，基础数据库配置，
+	基础路由配置，前后、后台业务基础模块和日志模块。组件中包括常用基础前端组件，
+	目前包括jquery-2.2.4，boostrap-3.3.6，bootstrap-meyer-reset-2.0，
+	jquery-ui-1.11.4，jquery-easyui-1.4.5，jquery-form-3.46.0	
+	jquery-nicescroll-3.6.8，jquery-sweetalert-3.6.8，jquery-migrate-3.0.0，
+	jquery-form-3.46.0，AdminEx。后端组件暂无。
+	

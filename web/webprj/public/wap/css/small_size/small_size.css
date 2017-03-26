@@ -1,0 +1,996 @@
+div.modal-backdrop{
+    background-color:rgba(0,0,0,.2);
+}
+
+.address_modal{
+    min-height: 0;
+    top:auto;
+    bottom: 0;
+}
+
+.address_modal .header_list{
+    width: 100%;
+    height: 4.5rem;
+    font-size: 1.5rem;
+    line-height: 4.5rem;
+    color: #333;
+    border-bottom: .1rem solid #B9B9B9;
+
+
+}
+
+.address_modal .header_list p{
+    position: relative;
+    text-align: center;
+}
+.address_modal p i{
+    position: absolute;
+    bottom: .2rem;
+    right: 1.8rem;
+    font-size: 1.05rem;
+}
+.address_modal .list_item{
+    height: 3.5rem;
+    width: 100%;
+    line-height: 3.5rem;
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: .1rem solid #B9B9B9;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow:row nowrap;
+        flex-flow:row nowrap;
+
+}
+.address_modal .list_item label.address_list_msg{
+    font-size: 1.2rem;
+    height: 3.5rem;
+    width: 9rem;
+    padding-left: 3.1rem;
+    line-height: 3.5rem;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+}
+.address_modal .list_item input{
+    font-size: 1.2rem;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    border: none;
+    outline: none;
+    padding-bottom: .3rem;
+    padding-right: 1.2rem;
+}
+.address_modal input::-webkit-input-placeholder{
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.address_modal .list_item span{
+    width: 5.2rem;
+    height: 100%;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+}
+.address_modal .list_item span+span{
+    text-align: right;
+}
+.address_modal .last_list{
+    position: relative;
+    width: 100%;
+    height: 6.7rem;
+}
+.address_modal .last_list div{
+    position: absolute;
+    width: 100%;
+    height: 5.2rem;
+    line-height: 5.2rem;
+    bottom: 0;
+    border: none;
+    font-size: 1.5rem;
+    word-spacing: 3rem;
+    background: #E80516;
+    color: white;
+    text-align: center;
+    box-shadow: 0 -.1rem 2rem 0 gray;
+}
+
+.province_list_wrapper {
+    width: 33%!important;
+    border-radius: 0!important;
+    border:0!important;
+    padding: 0!important;
+    font-size: 1rem!important;
+    margin-top: .25rem;
+    height: 3rem!important;
+    color: #666!important;
+    /*padding-right: 0!important;*/
+}
+.province_list_wrapper select {
+    padding: 0;
+    padding-right: 3.2rem;
+    font-size: 1rem;
+    color: #666!important;
+    text-align: left;
+    right: .5rem;
+
+}
+.province_list_wrapper {
+    width: 8rem;
+    border-radius: 0;
+    border:0;
+    padding: 0;
+    font-size: 1.2rem !important;
+    margin-top: .25rem;
+    height: 3rem;
+    color: #666;
+    /*padding-right: 0!important;*/
+}
+.province_list_wrapper select {
+    padding: 0;
+    padding-right: 2rem;
+    font-size: 1rem;
+    color: #666!important;
+    text-align: left;
+    /*position: relative;*/
+    margin-left: .8rem;
+
+}
+.item-select:after {
+    right: 1rem!important;
+}
+.city_list_wrapper {
+    width: 9.3rem;
+}
+/*个人头像盒子照片*/
+.person_imgBox{
+    width: 29%;
+}
+.person_imgBox>img{
+    width:100%;
+    height: 6.5rem;
+}
+
+.confirmOrder_content {
+    background-color: rgb(238,238,238);
+}
+
+/*收货地址*/
+
+/*单元格相同部分*/
+.order_same_wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 !important;
+    height: 3.5rem;
+    width: 100%;
+    background-color: white;
+    position: relative;
+}
+.order_same_wrapper span {
+    height: 3.5rem;
+    line-height: 3.5rem;
+    margin-left: 1rem;
+    font-size: 1.3rem;
+    display: block;
+    color: #666666;
+}
+
+.order_address_wrapper img{
+    margin-top: 1rem;
+    height: 1.5rem;
+    margin-left: 1rem;
+}
+.order_address_wrapper img.arrow {
+    position: absolute;
+    right: 1.2rem;
+}
+
+/*购物清单*/
+.order_list_wrapper {
+
+}
+.order_list_wrapper .orderList_title {
+    margin-top: 1rem;
+    height: 2.8rem;
+    width: 100%;
+    background-color: white;
+    border-bottom: 0.1rem solid rgb(238,238,238);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.order_list_wrapper .orderList_title img {
+    margin-top: .65rem;
+    height: 1.5rem;
+    margin-left: 1rem;
+}
+.order_list_wrapper .orderList_title span {
+    height: 2.8rem;
+    line-height: 2.8rem;
+    display: block;
+    margin-left: 1rem;
+    font-size: 1.3rem;
+}
+.order_list_wrapper>p {
+    width: 100%;
+    height: 4.3rem;
+    line-height: 4.3rem;
+    text-align: right;
+    padding-right: 1rem;
+    background-color: white;
+    margin: 0;
+}
+
+/*买家留言*/
+.order_input_wrapper{
+    margin-top: 1rem;
+    position: relative;
+}
+.order_input_wrapper textarea {
+    width: 100%;
+    height: 10rem;
+    padding: 1rem;
+    resize: none;
+    overflow:hidden;
+}
+.order_input_wrapper .input_msg_nums {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    color: #666666;
+}
+/*配送方式*/
+.order-sendMsg_wrapper {
+    margin-top: 1rem;
+}
+.order-sendMsg_wrapper img{
+    margin-top: 1rem;
+    height: 1.5rem;
+    margin-left: 1rem;
+}
+
+.order-sendMsg_wrapper span:last-child {
+    position: absolute;
+    right: 1rem;
+}
+
+.confirmOrder_content .order_price span:last-child {
+    position: absolute;
+    right: 1rem;
+    color: #E80516;
+}
+.order_price_wrapper {
+    margin-bottom: 0;
+    border-bottom: .1rem solid rgb(238,238,238);
+}
+.order_roadPrice_wrapper {
+    margin-top: 0;
+}
+
+/*支付方式*/
+.order_buyMethod_wrapper {
+    margin-top: 1rem;
+}
+.order_buyMethod_wrapper .wechat_wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 7.9rem;
+    position: absolute;
+    right: 1rem;
+}
+.wechat_wrapper img {
+    height: 1.6rem;
+    margin-top: .95rem;
+}
+.wechat_wrapper>span {
+    margin-left: .6rem;
+}
+
+.confirmOrder_bottom {
+    height: 5rem;
+    padding: 0!important;
+}
+.confirmOrder_bottom>div {
+    height: 5rem;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+}
+.confirmOrder_bottom>div>span {
+    display: block;
+    height: 5rem;
+    line-height: 5rem;
+}
+.confirmOrder_bottom>div>span:first-child {
+    margin-left: 1rem;
+}
+
+.confirmOrder_bottom .price {
+    color: #E80516;
+}
+.confirmOrder_bottom .price_icon {
+    font-size: 1rem;
+}
+.confirmOrder_bottom div>button {
+    height: 5rem;
+    position: absolute;
+    right: 0;
+    background-color: #E80516;
+    color: white;
+    font-size: 1.6rem;
+    border: 0;
+    width: 13.5rem;
+    font-weight: bold;
+}
+.order_list_wrapper .order_item p{
+    padding-right: 2rem;
+}
+.order_list_wrapper .order_item img {
+     width:10.5rem;
+     margin: 1rem 0 1rem 0;
+}
+.choiceAddModal{
+    width: 20rem;
+    height: 30rem;
+    position: absolute;
+    left: 0;right: 0;top: 0;bottom: 0;
+    margin: auto;
+    border: 1px solid lightgray;
+    font-size: 2.1rem;
+    background-color: white;
+    /*overflow: hidden;*/
+}
+.choiceAddressModal{
+    width: 20rem;
+    height: 30rem;
+    font-size: 1.6rem;
+}
+.choiceAddressModal span{
+    line-height: 3rem;
+}
+.choiceAddressModal .ShoppingAddress label{
+    font-size: 1.6rem;
+}
+.choiceAddressModal .ShoppingAddress .radio i{
+    top: .5rem;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+.choiceAddressModal .ShoppingAddress .radio input+i:after{
+    width: .6rem;
+    height: .6rem;
+}
+
+.confirmOrderModal{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 28.7rem;
+    height: 16.5rem;
+    min-height: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    border-radius: .5rem;
+}
+
+.confirmOrderModal img{
+    width: 100%;
+    height: 13.2rem;
+}
+
+.confirmOrderModal div{
+    width: 100%;
+    height: 3.3rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #ed3745;
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+}
+
+
+/*适配小于750px的屏幕*/
+.my_order{
+    background: #EEE;
+}
+/*导航栏的样式*/
+.my_order .nav_list{
+    height: 3.5rem;
+    font-size: 0;
+    width: 100%;
+    background: white;
+}
+.my_order .nav_list ul{
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 1.2rem;
+    padding: .45rem 0;
+    /*border-bottom:1px solid;*/
+}
+.my_order .nav_list ul li{
+    position: relative;
+    text-align: center;
+    width: 25%;
+    box-sizing: border-box;
+    line-height: 2.6rem;
+    height: 2.6rem;
+
+}
+.my_order .nav_list ul li~li{
+    border-left:1px solid #BCBBBB;
+}
+.my_order .nav_list ul li.active{
+    color:#D60101;
+}
+.my_order .nav_list ul li.active::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 0;
+    width: 5.25rem;
+    bottom: -.45rem;
+    border-bottom:.2rem solid #D60101;
+}
+/*.order_list订单列表
+.order_num 为订单编号所在的块
+*/
+.my_order .order_list{
+    width: 100%;
+    background: white;
+}
+.my_order .order_list .order_num{
+    margin-top: .5rem;
+    height: 3rem;
+    line-height: 3rem;
+    padding:0 1.1rem;
+    font-size: 1.2rem;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+
+}
+.my_order .order_list .order_num span{
+    color: #666666;
+}
+.my_order .order_list .order_num span~span{
+    color: #EA1E2D;
+}
+/*.order_item商品信息 包含：图片，描述，单价，和数量*/
+.my_order .order_item{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    /*justify-content: space-between;*/
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    width: 100%;
+    background: #EEE;
+    height: 8.6rem;
+    padding: 0 1.1rem;
+}
+.my_order .order_item+.order_item{
+    margin-top: .5rem;
+}
+
+.my_order .order_item .order_text{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    width: 100%;
+
+}
+.my_order .order_item img{
+    width: 10rem;
+    height: 7rem;
+    margin: .7rem 1.05rem .9rem 0;
+}
+.my_order .order_item p{
+    width: 16.75rem;
+    line-height: 1.5rem;
+    font-size: 1.2rem;
+    margin: 1.2rem 0 0 0;
+    color: #333;
+
+}
+
+.my_order .order_item .price{
+    /*line-height: 100%;*/
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    /*justify-content: center;*/
+    -ms-flex-flow: column;
+        flex-flow: column;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    color: #333;
+    margin-top: 1.45rem;
+}
+/*.order_total订单总价和总的数量所在的块*/
+.my_order .order_total{
+    text-align: right;
+    width: 100%;
+    /*border-bottom: .1rem solid #BEBDBD;*/
+}
+.my_order .order_item .price span{
+    font-size: 1.3rem;
+    height: 1.3rem;
+
+}
+.my_order .order_item .price span~span{
+    font-size: 1.2rem;
+    height: 1.2rem;
+    margin-top: .9rem;
+    color: #666;
+}
+
+.my_order .order_item .span_origin{
+    text-decoration: line-through;
+}
+
+.my_order .order_total{
+    line-height: 3.45rem;
+    height: 3.45rem;
+}
+.my_order .order_total>span{
+    color: #333;
+    font-size: 1.1rem;
+    margin-right: 1.1rem;
+}
+.my_order .order_total>span span{
+    font-size: 1.3rem;
+}
+/*。order_footer按钮所在的块*/
+.my_order .order_footer{
+    text-align: right;
+    width: 100%;
+    font-size: 0;
+    height: 4.3rem;
+    padding-right: 1.15rem;
+}
+.my_order .order_footer .btn{
+    outline: none;
+    border: .1rem solid #999;
+    background: transparent;
+    color: #666;
+    font-size: 1.2rem;
+    margin: 1rem 0 1rem 1.15rem;
+    border-radius: .2rem;
+    width: 7.8rem;
+    height: 2.3rem;
+    padding: 0;
+}
+.my_order .order_footer .btn.lone{
+    border-color: #EA1E2D;
+    color: #EA1E2D;
+}
+/*。myOrder的元素为ionic弹*/
+.myOrder.popup-container .popup{
+    background: white;
+    width: 27.65rem;
+    height: 17.6rem;
+    border-radius: .5rem;
+}
+
+.myOrder.popup-container .popup-buttons{
+    width: 100%;
+    min-height:0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-top: .1rem solid #ACABAB;
+    padding: .3rem 0;
+    height: 3.6rem;
+}
+
+.myOrder.popup-container .popup-buttons .button{
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    min-height: 0;
+    border-radius: 0;
+    background: transparent;
+    height: 3rem;
+    font-size: 1.5rem;
+}
+.myOrder .popup-buttons .button:last-child{
+    border-left: .1rem solid #ACABAB;
+    color: #E80516;
+}
+.myOrder .button.activated{
+    outline: none;
+}
+.myOrder .button:after{
+    display: none;
+}
+
+.myOrder .popup-head{
+    display: none;
+}
+.myOrder .popup-body{
+    height: 14rem;
+    position: relative;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+
+}
+.myOrder .popup-body span{
+    display: inline-block;
+    color: #333;
+    font-size: 1.5rem;
+    margin-top: 7rem;
+}
+
+.myOrder.popup-container.refund .popup-buttons{
+    border: none;
+}
+.myOrder.refund .popup-body p{
+    font-size: 1.5rem;
+    line-height: 4.5rem;
+}
+.myOrder.refund .popup-body textarea{
+    width: 100%;
+    height: 9.5rem;
+    font-size: 1.2rem;
+    padding: .8rem 1.35rem;
+    position: absolute;
+    bottom: 0;
+    background: #EEE;
+}
+.myOrder.refund .popup-body textarea::-webkit-input-placeholder{
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.myOrder.refund .popup-body div{
+    font-size: 1.2rem;
+    color: #666;
+    position: absolute;
+    bottom: .5rem;
+    right: 1.4rem;
+}
+.order_emptyMsg {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    color: gray;
+}
+div.modal-backdrop{
+    background-color: rgba(0,0,0,.6);
+}
+.shareModal{
+    height: auto;
+    min-height: 0;
+    background-color: transparent;
+}
+
+.shareModal img{
+    width: 100%;
+}
+#shoppingCart{
+    background-color: rgb(238,238,238);
+}
+/*是否全选*/
+#shoppingCart .ifSelectAll{
+    position: relative;
+}
+#shoppingCart .ifSelectAll .selectBtn span{
+    display: block;
+    position: absolute;
+    top: 0;  left: 0;bottom: 0;right: 0;
+    margin: auto;
+    border: 1px solid rgb(160,160,160);
+    border-radius: 50%;
+}
+#shoppingCart .ifSelectAll .selectBtn span i{
+    position: absolute;
+    content: '';
+    border-radius: 50%;
+    background-color: red;
+}
+#shoppingCart .ifSelectAll span{
+    position: absolute;
+}
+
+/*购物车列表*/
+#shoppingCart .shoppingList{
+    width: 100%;
+    background-color: #FFFFFF;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    border: .1rem solid #E2E2E2;
+}
+
+/*有商品的样式*/
+
+/*复选框和失效标识*/
+#shoppingCart .listCheck,.loseShopping{
+    position: relative;
+    height: 100%;
+}
+#shoppingCart .shoppingList .listCheck label{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: block;
+    cursor: pointer;
+    font-weight: 500;
+}
+/*把原生的radio移开*/
+#shoppingCart .shoppingList .listCheck .radio input{
+    position: absolute;
+    left: -999rem;
+}
+#shoppingCart .shoppingList .listCheck .radio .littleRedCount{
+    display: block;
+    position: absolute;
+    top: 0;  left: 0;bottom: 0;right: 0;
+    margin: auto;
+    border: 1px solid rgb(160,160,160);
+    border-radius: 50%;
+}
+#shoppingCart .shoppingList .listCheck .radio input:checked+.littleRedCount{
+    border-color: rgb(160,160,160);
+}
+#shoppingCart .shoppingList .listCheck .radio input+.littleRedCount:after{
+    position: absolute;
+    content: '';
+    border-radius: 50%;
+    background-color: red;
+    opacity: 0;
+}
+#shoppingCart .shoppingList .listCheck .radio input:checked+.littleRedCount:after{
+    opacity: 1;
+}
+
+
+
+
+/*商品图片*/
+#shoppingCart .shoppingList .listPic img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#shoppingCart .shoppingList .listContent{
+    position: relative;
+}
+/*右侧操作栏*/
+#shoppingCart .shoppingList  .listRightThree{
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient:vertical;
+    -webkit-box-direction:normal;
+        -ms-flex-direction:column;
+            flex-direction:column;
+    -webkit-box-pack:end;
+        -ms-flex-pack:end;
+            justify-content:flex-end;
+}
+#shoppingCart .shoppingList  .listRightThree div:first-child{
+    color: #E80516;
+}
+#shoppingCart .shoppingList  .listRightThree div:nth-of-type(2){
+    color: #666;
+    text-align: right;
+}
+#shoppingCart .shoppingList  .listRightThree .listRightThreeDelt{
+    width: 100%;
+    text-align: right;
+}
+#shoppingCart .shoppingList .listRightThree .listRightThreeDelt img{
+    height: 100%;
+}
+
+
+/*已售罄的商品样式*/
+#shoppingCart .shoppingLoseList{
+    background-color: #ddd;
+}
+#shoppingCart .shoppingList .loseShopping>div{
+    background-color: #666666;
+    text-align: center;
+    position: absolute;
+    color: #FFF;
+}
+#shoppingCart .shoppingList .listContent .shoppingRemarks{
+    color: #E80516;
+    position: absolute;
+    left: 0;
+}
+
+/*底部栏1*/
+#shoppingCartBottom{
+    padding: 0;
+    box-shadow: 1rem 1rem 1rem 1rem gray;
+}
+#shoppingCartBottom .shoppingCartBottom_left p{
+    line-height: .9rem;
+}
+#shoppingCartBottom .shoppingCartBottom_left p span:first-child{
+    color: #E80516;
+}
+#shoppingCartBottom .shoppingCartBottom_right button{
+    margin: 0;
+    height: 100%;
+    background-color:rgba(232,5,22,.8);
+}
+
+
+
+/*复选框和失效标识*/
+#shoppingCart .listCheck,.loseShopping{
+    position: relative;
+    width: 2.45rem;
+    height: 100%;
+}
+/*失效字体*/
+#shoppingCart .shoppingList .loseShopping>div{
+    width: 1.24rem;
+    line-height: 1.35rem;
+    left: .6rem;
+    top: 3.5rem;
+}
+/*右侧商品操作栏*/
+#shoppingCart .shoppingList  .listRightThree{
+    /*font-family: 微软雅黑;*/
+    position: absolute;
+    top: 1.8rem;
+    right: .5rem;
+}
+
+/*底部运费说明*/
+#shoppingCartBottom .shoppingCartBottom_left p span:last-child{
+    font-size: .9rem;
+    color: #666666;
+    margin-right: -0.5rem;
+}
+
+/*是否全选*/
+#shoppingCart .ifSelectAll{
+    height: 3.45rem;
+    width: 2.7rem;
+}
+#shoppingCart .ifSelectAll .selectBtn span{
+    width: 1.25rem;
+    height: 1.25rem;
+}
+#shoppingCart .ifSelectAll .selectBtn span i{
+    top: 2px;
+    left: 2px;
+    width: .65rem;
+    height: .65rem;
+}
+#shoppingCart .ifSelectAll span{
+    left: 2.25rem;
+    top: .7rem;
+    width: 5rem;
+    font-size: 1.5rem;
+}
+/*购物车列表*/
+#shoppingCart .shoppingList{
+    margin-bottom: .8rem;
+    height: 9.5rem;
+}
+#shoppingCart .shoppingList .listCheck label{
+    line-height: 1.8rem;
+    font-size: 2.1rem;
+}
+#shoppingCart .shoppingList .listCheck .radio .littleRedCount{
+    width: 1.25rem;
+    height: 1.25rem;
+}
+#shoppingCart .shoppingList .listCheck .radio input+.littleRedCount:after{
+    top: 2px;
+    left: 2px;
+    width: .65rem;
+    height: .65rem;
+}
+
+/*商品图片*/
+#shoppingCart .shoppingList .listPic{
+    width: 7.05rem;
+    height: 7rem;
+    margin-top: 1.2rem;
+}
+#shoppingCart .shoppingList .listContent{
+    width: 15.2rem;
+    margin-top: 1.2rem;
+    margin-left: .8rem;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+}
+
+#shoppingCart .shoppingList  .listRightThree div:first-child{
+    font-size: 1.3rem;
+    line-height: 1rem;
+}
+#shoppingCart .shoppingList  .listRightThree div:nth-of-type(2){
+    font-size: 1.2rem;
+    line-height: .9rem;
+    margin-top: .9rem;
+}
+#shoppingCart .shoppingList  .listRightThree .listRightThreeDelt{
+    height: 1.7rem;
+    margin-top: 1.75rem;
+}
+/*已售罄的商品样式*/
+#shoppingCart .shoppingList .loseShopping>div{
+    border-radius: 1rem;
+    font-size: .9rem;
+}
+#shoppingCart .shoppingList .listContent .shoppingRemarks{
+    font-size: .9rem;
+    bottom: .8rem;
+}
+
+/*底部栏*/
+#shoppingCartBottom{
+    height: 5.2rem;
+}
+#shoppingCartBottom .shoppingCartBottom_left p{
+    margin: 1.5rem 0 1.9rem 1.15rem;
+    font-size: 1.2rem;
+}
+#shoppingCartBottom .shoppingCartBottom_left p span:first-child{
+    font-size: 1.5rem;
+    line-height: 18px;
+}
+#shoppingCartBottom .shoppingCartBottom_left p span:last-child{
+    font-size: .9rem;
+    color: #666666;
+    margin-left: .2rem;
+}
+#shoppingCartBottom .shoppingCartBottom_right button{
+    font-size: 1.5rem
+}
+/*第一部分左边图片*/
+.shopCard_top>img{
+    /*width:14.6rem;*/
+    margin-left:1.5rem;
+    width: 50%;
+    height:6.7rem;
+}

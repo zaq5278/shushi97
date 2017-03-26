@@ -1,0 +1,51 @@
+<style>
+    .result{position: fixed;top:0;left:0;background: rgba(0,0,0,0.5);z-index:1000;width:100%;height:100%;display: none;}
+    .imgresult{border:5px solid #fff;}
+    .indiv{position: absolute;}
+</style>
+<!--搜索条件头部-->
+{{ partial("partials/tp_page_search_ex") }}
+<!--数据列表-->
+{{ partial("partials/tp_page_table") }}
+<!--分页-->
+{{ partial("partials/tp_page_pagination") }}
+<script>
+$(function () {
+    function showImg(outdiv,indiv,bigimg,thiselement){
+        var winW = $(window).width();
+        var winH = $(window).height();
+        var src = $(thiselement).attr('src');
+        $(bigimg).attr("src",src);
+        $("<img/>").attr("src",src).load(function(){
+            var imgW = this.width;
+            var imgH = this.height;
+            var scale= imgW/imgH;
+            if( imgW > winW ){
+                $(bigimg).css("width","100%").css("height","auto");
+                imgH = winW/scale;
+                var h=(winH-imgH)/2;
+                $(indiv).css({"left":0,"top":h});
+            }else{
+                $(bigimg).css("width",imgW+'px').css("height",imgH+'px');
+                var w=(winW-imgW)/2;
+                var h=(winH-imgH)/2;
+                $(indiv).css({"left":w,"top":h});
+            }
+
+            $(outdiv).fadeIn("fast");
+            $(outdiv).click(function(){
+                $(this).fadeOut("fast");
+            });
+        });
+    }
+    $('.img-thumbnail').click(function(){
+        var thiselement=$(this);
+        showImg("#outdiv",".indiv","#bigimg",thiselement);
+    });
+})
+</script>
+<div class="result" id="outdiv">
+    <div class="indiv">
+        <img class="imgresult" id="bigimg" src="">
+    </div>
+</div>

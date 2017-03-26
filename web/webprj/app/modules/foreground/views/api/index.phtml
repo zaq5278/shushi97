@@ -1,0 +1,66 @@
+<style>
+    .intro_title{cursor:pointer;padding: 3px 5px;background: #ddd;border: 1px solid #aaa;}
+    .intro_title a{}
+</style>
+<div> 
+    <p> 
+        <span class="intro_title"><a onclick="window.location.href='../../libs/cropupload/demos/demo.html'" target="_blank">图片裁剪</a></span>
+           <!--用户图片-->
+         <div id="image"></div>
+        <!--用户图片-->
+         <div id="image"></div>
+         <a href="../../libs/cropupload/demos/demo.html"></a>
+    </p>
+    <iframe id = "saomaali" height="300px" width="300px"></iframe><br>
+
+</div> 
+<div> 
+    <p> 
+        <input type="button" value="生成订单号" onclick="ordercode()"> 
+    </p> 
+    <p> 
+        <input type="button" value="阿里WEB支付" onclick="webalipay()"> 
+        <input type="button" value="阿里APP支付" onclick="mobilealipay()"> 
+        <input type="button" value="阿里WEB扫码支付" onclick="webalismbank()">
+        <input type="button" value="阿里手机WEB支付" onclick="mobilealiwebpay()"> 
+    </p> 
+    <p> 
+        <input type="button" value="微信WEB支付" onclick="webwxpay()">
+        <input type="button" value="微信APP支付" onclick="mobilewxpay()">
+        <input type="button" value="微信扫码" onclick="mobilewxpay()">
+    </p> 
+    <p> 
+        <input type="button" value="WEB银联支付" onclick="webalibank()"> 
+        <span class="intro_title"><a onclick="window.location.href='../../libs/fuqianle/pc.html'" target="_blank">付钱了PC</a></span>
+        <span class="intro_title"><a onclick="window.location.href='../../libs/fuqianle/h5.html'" target="_blank">付钱了H5</a></span>
+    </p> 
+  
+    <p> 
+        <input type="button" value="生成验证码" onclick="getsmscode()"> 
+        <input type="button" value="验证码校验" onclick="checksmscode()"> 
+        <input type="text" id="verifycode">
+    </p> 
+     <p> 
+        <input type="button" value="用户注册" onclick="userRegistration()"> 
+        <input type="button" value="用户登录" onclick="user_login()"> 
+        <input type="button" value="密码重置" onclick="user_passwdreset()"> 
+        <input type="button" value="密码修改" onclick="user_passwdmodify()"> 
+        <input type="button" value="修改用户信息" onclick="userinfo_modify()"> 
+    </p> 
+     <p> 
+        <input type="button" value="QQ登录" onclick="qq_login()"> 
+        <input type="button" value="微信登录" onclick="wx_login()"> 
+        <input type="button" value="微博登录" onclick="wb_login()"> 
+        <input type="button" value="用户退出" onclick="logout()"> 
+        <input type="button" value="用户绑定" onclick="bind3account()"> 
+    </p> 
+    <p> 
+       <img class="piccodeclass" src="" onclick="getpicCode('piccode',35,4,0,1)" id="piccode" style="height: 35px"/>
+        <input type="text" id='picverifycode'/>
+        <img class="" src=""  id="notice" alt='结果'/>
+
+        <button onclick='checkpiccode(35,4,0,1)' />验证</button>
+    </p> 
+</div> 
+    
+

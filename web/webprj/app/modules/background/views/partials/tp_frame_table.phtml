@@ -1,0 +1,138 @@
+{%- macro create_table(tb_ths, tb_trs, tatch = false, data_key = null) %}
+<div class="" style="padding-top: 20px">
+    <table class="table table-bordered table-hover table-invoice">
+        <thead>
+        <tr>
+            {# 表格标题区起始 #}
+            <th width="50" class="text-center">ID</th>
+            {% for item in tb_ths %}
+            <th width="{{ item['width'] | default('') }}" class="{{ item['class'] | default('') }}" >{{ item['name'] }}</th>
+            {% endfor %}
+            {# 表格标题区结束 #}
+        </tr>
+        </thead>
+
+        <tbody>
+        {# 表格数据区起始 #}
+        {# tb_trs_data表示全部列表数据 #}
+        {% set tb_trs_start = tb_trs['start'] | default(1) %}
+        {% set tb_trs_data = tb_trs['data'] | default(null) %}
+        {% for index in 0..tb_trs_data | length %}
+        {# 判断数据是否有效 #}
+        {% if tb_trs_data[index] is defined %}
+        {# item表示一条列表数据中数据 #}
+        {% set item = tb_trs_data[index] %}
+        {% set id = item['id'] %}
+        {% if item['tableStatus'] is defined %}
+            {% set trClass = item['tableStatus'] %}
+        {% else %}
+            {% set trClass = "" %}
+        {% endif %}
+        <tr class="{{trClass}}">
+            {# 数据区起始 #}
+            {% if true == tatch %}
+                {% set checked = "" %}
+                {% set disabled = "" %}
+                {% set checkKey = "" %}
+                {% if item['checked'] is defined and true == item['checked'] %}
+                    {% set checked = "checked='checked'" %}
+                {% endif %}
+                {% if item['disabled'] is defined and true == item['disabled'] %}
+                    {% set disabled = "disabled='disabled'" %}
+                {% endif %}
+                {% if item[data_key] is defined %}
+                    {% set checkKey = item[data_key] %}
+                {% endif %}
+                <td align="center"><input type="checkbox" {{checked}} {{disabled}} data-key="{{checkKey}}">{{ index + tb_trs_start }}</td>
+            {% else %}
+                {# 编号 #}
+                <td align="center">{{ item[field['goods_id']] }}</td>
+            {% endif %}
+            {# 其他字段 #}
+            {% if tb_trs['using'] is defined %}
+            {# 仅使用using中指定字段 #}
+            {% set fields = tb_trs['using'] %}
+            {% for field in fields %}
+            <td align="{{ field['align'] | default('') }}">
+                {% set filed_type = field['type'] | default("text") %}
+                {% if (filed_type == "image") %}
+                <image class="img-thumbnail" src="{{ item[field['field']] }}" alt="图片">
+                    {% else  %}
+                    {{ item[field['field']] }}
+                    {% endif %}
+            </td>
+            {% endfor %}
+            {% else %}
+            {# 使用全部字段 #}
+            {% for item_filed in item %}
+            <td>{{ item_filed }}</td>
+            {% endfor %}
+            {% endif %}
+            {# 数据区结束 #}
+
+            {# 操作区起始 #}
+            {# ops表示所有操作 #}
+            {% set ops = tb_trs['op'] | default(null) %}
+            {% if ops is defined %}
+            <td align="center">
+                <!--{% set actions = op['actions'] | default([]) %}-->
+                {% set actions = ops["actions"] | default([]) %}
+                {% set status_value = item[ops['key']] %}
+                {% set status_actions = ops["value"][status_value] %}
+
+                {% for action_index in status_actions %}
+                {% set action = actions[action_index] %}
+                {# 属性id前缀，默认前缀 MG #}
+                {% set id_pre = action['id_pre'] | default("MG") %}
+                {% set url = action['link'] %}
+                {% set action_tip = action['tip'] | default(false) %}
+                {% set target = action['target'] | default("_self") %}
+                {# 默认参数 #}
+                {% set query_id = ['id':id] %}
+                {% set query_params = null %}
+                {# 操作类型 #}
+                {% if action['multiple'] is defined and action['key'] is defined %}
+                {# 带有状态的操作，比如(启用/禁用) #}
+                {# 获取状态值 #}
+                {% set am_index = item[action['key']] %}
+                {# action_attr当前状态下全部属性 #}
+                {% set action_attr = action['multiple'][am_index] %}
+                {# 属性class #}
+                {% set action_class = action_attr['class'] | default(null) %}
+                {# 操作名称 #}
+                {% set action_name = action_attr['name'] | default("") %}
+                {% set query_params = action['key'] ~ "=" ~ am_index %}
+                {% else %}
+                {# 属性class #}
+                {% set action_class = action['class'] | default(null) %}
+                {# 操作名称 #}
+                {% set action_name = action['name'] | default("") %}
+                {% endif %}
+
+                {# a 标签使用post方式提交请求, 务必引用qst_table.js #}
+                {% if (action['method'] | default("get")) == "post" %}
+                {% set action_class = action_class ~ " mg_post" %}
+                {% endif %}
+                {% if query_params is defined %}
+                {% set url = url ~ "?" ~ query_params %}
+                {% endif %}
+                {{ link_to("action":url, "query":query_id, "text":action_name, "class":action_class, "target":target,  "id":id_pre ~ id, "tip":action_tip) }}
+                {% if !loop.last %}
+                {{ "|" }}
+                {% endif %}
+                {% endfor %}
+            </td>
+            {% endif %}
+            {# 操作区结束 #}
+        </tr>
+        {% endif %}
+        {% endfor %}
+        {# 表格数据区结束 #}
+        </tbody>
+    </table>
+
+    {% if (tb_trs_data | length) <= 0 %}
+    <h3 class="text-center">没有相关数据</h3>
+    {% endif %}
+</div>
+{%- endmacro %}

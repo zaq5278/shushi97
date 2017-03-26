@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>系统管理后台</title>
+
+    {{ stylesheet_link_libs("libs/js3party/bootstrap/3.3.6/bootstrap.min.css",false) }}
+    {{ stylesheet_link_libs("libs/js3party/bootstrap/fonts/css/font-awesome.min.css",false) }}
+    {{ stylesheet_link_libs("libs/js3party/jquery-ui/1.11.4/css/jquery-ui.min.css",false) }}
+    {{ stylesheet_link_libs("libs/js3party/AdminEx/css/style.css",false) }}
+    {{ stylesheet_link_libs("libs/js3party/AdminEx/css/style-responsive.css",false) }}
+
+    {{ javascript_include_libs("libs/jsapi/base.js",false) }}
+
+    {{ "<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->" }}
+    {{ "<!--[if lt IE 9]>" }}
+    {{ javascript_include_libs("libs/js3party/AdminEx/js/html5shiv.js",false) }}
+    {{ javascript_include_libs("libs/js3party/AdminEx/js/respond.min.js",false) }}
+    {{ "<![endif]-->" }}
+    
+    {{ assets.outputCss() }}
+
+    {{ javascript_include_libs("libs/js3party/jquery/jquery-1.10.2.min.js",false) }}
+    {{ javascript_include_libs("libs/jsapi/qst-alert.js",false) }}
+<script>
+    var _HOME_ROOT_ ="<?php echo $home_root ?>";
+    QstLoad = {loaders:{}, instance:{}};
+</script>
+    {#{{ partial("api/rootvar") }}#}
+ </head>
+
+<body class="sticky-header">
+<div class="qst-alert" style="text-align:center; position: fixed; z-index: 2000; width: 100%; padding-right: 0;">
+
+</div>
+    <section>
+        <!-- left side start-->
+        {{ partial('partials/tp_frame_menu') }}
+        <!-- left side end-->
+        <!-- main content start-->
+        <div class="main-content" >
+            <!-- frame head start-->
+            {{ partial('partials/tp_frame_head') }}
+            <!-- frame head end-->
+
+            <!--body wrapper start-->
+            <!-- partial('partials/tp_page_nav') -->
+            <div class="wrapper">
+                {#{{ partial("partials/tp_page_header") }}#}
+                {{ content() }}
+            </div>
+            <!--body wrapper end-->
+        </div>
+        <!--main content end-->
+    </section>
+
+    {{ partial("partials/tp_frame_loading") }}
+    {#{{ javascript_include("libs/js3party/jquery/jquery-2.2.4.min.js",false) }}#}<!--裁剪插件不支持-->
+    {{ javascript_include_libs("libs/js3party/jquery-ui/1.11.4/js/jquery-ui.min.js",false) }}
+    {{ javascript_include_libs("libs/js3party/bootstrap/3.3.6/bootstrap.min.js",false) }}
+    {{ javascript_include_libs("libs/js3party/jquery-nicescroll/3.6.8/js/jquery.nicescroll.min.js",false) }}
+    {{ javascript_include_libs("libs/js3party/jquery-migrate/1.4.1/jquery-migrate.min.js",false) }}
+    {{ javascript_include_libs("libs/js3party/AdminEx/js/modernizr.min.js",false) }}
+    {{ javascript_include_libs("libs/js3party/AdminEx/js/scripts.js",false) }}
+    {{ javascript_include("public/static/background/js/htCurrencyIfFrom.js") }}  <!--弹出狂框，表单验证-->
+    {{ assets.outputJs() }}
+    {{ javascript_include_libs("libs/jsapi/qst-load.js",false) }}
+</body>
+</html>
